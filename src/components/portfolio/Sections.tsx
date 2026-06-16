@@ -17,6 +17,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { Reveal, SectionHeader } from "./Reveal";
+import resumeAsset from "../../assets/resume_Rasool.pdf.asset.json";
 
 export function Hero() {
   return (
