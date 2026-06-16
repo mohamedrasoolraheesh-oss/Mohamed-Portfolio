@@ -80,7 +80,7 @@ export function Hero() {
             {[
               { k: "4+", v: "Projects Built" },
               { k: "2", v: "AI Internships" },
-              { k: "4", v: "Certifications" },
+              { k: "8+", v: "Certifications" },
             ].map((s) => (
               <div key={s.v} className="px-4 py-6">
                 <div className="font-display text-3xl font-semibold gold-text">{s.k}</div>
