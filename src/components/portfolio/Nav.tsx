@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Mail, Linkedin, Github, Code2 } from "lucide-react";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -8,6 +9,13 @@ const links = [
   { href: "#experience", label: "Experience" },
   { href: "#certifications", label: "Certifications" },
   { href: "#contact", label: "Contact" },
+];
+
+const socials = [
+  { href: "mailto:mohamedrasoolraheesh@gmail.com", label: "Email", icon: Mail },
+  { href: "https://linkedin.com/in/rasoolhub", label: "LinkedIn", icon: Linkedin },
+  { href: "https://github.com/mohamedrasoolraheesh-oss", label: "GitHub", icon: Github },
+  { href: "https://leetcode.com", label: "LeetCode", icon: Code2 },
 ];
 
 export function Nav() {
@@ -32,17 +40,17 @@ export function Nav() {
           : "border-transparent bg-transparent"
       }`}
     >
-      <nav className="flex items-center justify-between px-5 py-3 md:px-6">
-        <a href="#home" className="group flex items-center gap-2">
+      <nav className="flex items-center justify-between gap-3 px-4 py-3 md:px-6">
+        <a href="#home" className="group flex shrink-0 items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] font-display text-sm font-semibold tracking-wider gold-text">
             MR
           </span>
-          <span className="hidden text-sm font-medium tracking-wide text-foreground/80 sm:block">
+          <span className="hidden text-sm font-medium tracking-wide text-foreground/80 lg:block">
             Mohamed Rasool
           </span>
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden flex-1 items-center justify-center gap-1 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
               <a
@@ -55,26 +63,37 @@ export function Nav() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className="hidden rounded-lg border border-[color:var(--gold)]/30 bg-[color:var(--gold)]/10 px-4 py-2 text-sm font-medium text-[color:var(--gold-soft)] transition-all hover:bg-[color:var(--gold)]/20 hover:shadow-[0_0_30px_-5px_var(--glow)] md:inline-flex"
-        >
-          Hire Me
-        </a>
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+          {socials.map((s) => {
+            const Icon = s.icon;
+            return (
+              <a
+                key={s.label}
+                href={s.href}
+                target={s.href.startsWith("http") ? "_blank" : undefined}
+                rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                aria-label={s.label}
+                className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.03] text-muted-foreground transition-all hover:border-[color:var(--gold)]/35 hover:bg-[color:var(--gold)]/[0.08] hover:text-[color:var(--gold-soft)]"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            );
+          })}
 
-        <button
-          onClick={() => setOpen((s) => !s)}
-          aria-label="Toggle menu"
-          className="md:hidden rounded-md border border-white/10 p-2 text-foreground"
-        >
-          <span className="block h-0.5 w-5 bg-current" />
-          <span className="mt-1.5 block h-0.5 w-5 bg-current" />
-          <span className="mt-1.5 block h-0.5 w-5 bg-current" />
-        </button>
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-label="Toggle menu"
+            className="ml-1 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.03] text-foreground lg:hidden"
+          >
+            <span className="block h-0.5 w-4 bg-current" />
+            <span className="mt-1 block h-0.5 w-4 bg-current" />
+            <span className="mt-1 block h-0.5 w-4 bg-current" />
+          </button>
+        </div>
       </nav>
 
       {open && (
-        <div className="border-t border-white/10 px-5 py-3 md:hidden">
+        <div className="border-t border-white/10 px-4 py-3 lg:hidden">
           <ul className="flex flex-col gap-1">
             {links.map((l) => (
               <li key={l.href}>
