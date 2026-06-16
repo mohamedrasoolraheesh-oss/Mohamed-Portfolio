@@ -432,6 +432,10 @@ const certs = [
     title: "AI / ML Internship Certificate",
     by: "InternPe",
   },
+  {
+    title: "Deep Learning Specialization",
+    by: "DeepLearning.AI",
+  },
 ];
 
 export function Certifications() {
@@ -439,7 +443,7 @@ export function Certifications() {
     <section id="certifications" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeader eyebrow="Credentials" title="Certifications" />
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {certs.map((c, i) => (
             <Reveal key={c.title} delay={i * 0.05}>
               <div className="hover-lift relative h-full overflow-hidden rounded-2xl border border-white/10 bg-card/60 p-7 backdrop-blur">
