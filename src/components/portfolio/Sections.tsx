@@ -64,7 +64,10 @@ export function Hero() {
               Let's Connect
             </a>
             <a
-              href="#contact"
+              href={resumeAsset.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              download="resume_Rasool.pdf"
               className="inline-flex items-center gap-2 rounded-xl px-4 py-3.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               <Download className="h-4 w-4" /> Resume
