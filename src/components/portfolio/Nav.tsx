@@ -55,27 +55,11 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          {socials.map((s) => {
-            const Icon = s.icon;
-            return (
-              <a
-                key={s.label}
-                href={s.href}
-                target={s.href.startsWith("http") ? "_blank" : undefined}
-                rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                aria-label={s.label}
-                className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.03] text-muted-foreground transition-all hover:border-[color:var(--gold)]/35 hover:bg-[color:var(--gold)]/[0.08] hover:text-[color:var(--gold-soft)]"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            );
-          })}
-
+        <div className="flex shrink-0 items-center gap-2">
           <button
             onClick={() => setOpen((s) => !s)}
             aria-label="Toggle menu"
-            className="ml-1 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.03] text-foreground lg:hidden"
+            className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.03] text-foreground lg:hidden"
           >
             <span className="block h-0.5 w-4 bg-current" />
             <span className="mt-1 block h-0.5 w-4 bg-current" />
