@@ -1,6 +1,7 @@
 import { Nav } from "@/components/portfolio/Nav";
 import { Hero3D } from "@/components/portfolio/Hero3D";
 import { SocialRail } from "@/components/portfolio/SocialRail";
+import { IntroSplash } from "@/components/portfolio/IntroSplash";
 import {
   About,
   Certifications,
