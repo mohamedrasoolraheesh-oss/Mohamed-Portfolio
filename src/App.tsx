@@ -1,11 +1,12 @@
 import { Nav } from "@/components/portfolio/Nav";
+import { Hero3D } from "@/components/portfolio/Hero3D";
+import { SocialRail } from "@/components/portfolio/SocialRail";
 import {
   About,
   Certifications,
   Contact,
   Experience,
   Footer,
-  Hero,
   Projects,
   Skills,
 } from "@/components/portfolio/Sections";
@@ -20,8 +21,9 @@ export function App() {
       </div>
       <div className="relative z-10">
         <Nav />
+        <SocialRail />
         <main>
-          <Hero />
+          <Hero3D />
           <About />
           <Skills />
           <Experience />
