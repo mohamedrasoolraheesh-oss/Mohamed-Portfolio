@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Github, Code2 } from "lucide-react";
 
 const links = [
   { href: "#home", label: "Home" },
@@ -9,13 +8,6 @@ const links = [
   { href: "#experience", label: "Experience" },
   { href: "#certifications", label: "Certifications" },
   { href: "#contact", label: "Contact" },
-];
-
-const socials = [
-  { href: "mailto:mohamedrasoolraheesh@gmail.com", label: "Email", icon: Mail },
-  { href: "https://linkedin.com/in/rasoolhub", label: "LinkedIn", icon: Linkedin },
-  { href: "https://github.com/mohamedrasoolraheesh-oss", label: "GitHub", icon: Github },
-  { href: "https://leetcode.com", label: "LeetCode", icon: Code2 },
 ];
 
 export function Nav() {
