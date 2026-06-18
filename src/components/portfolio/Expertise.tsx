@@ -4,32 +4,33 @@ const cards = [
   {
     n: "01",
     title: "Machine Learning",
-    body: "Designing and training ML models for prediction, classification and recommendation using scikit-learn, TensorFlow and PyTorch.",
+    body: "End-to-end ML pipelines for classification & regression using Scikit-learn — EDA, feature engineering, model selection, cross-validation and hyperparameter tuning.",
     rotate: -4,
     bg: "bg-[#fff1f1]",
   },
   {
     n: "02",
-    title: "Deep Learning & NLP",
-    body: "Building neural networks, transformers, and NLP pipelines for text understanding, generation and intelligent assistants.",
+    title: "NLP & RAG",
+    body: "Building NLP pipelines and RAG-based assistants with TF-IDF, cosine similarity and retrieval + keyword matching to reduce hallucinations.",
     rotate: 3,
     bg: "bg-white",
   },
   {
     n: "03",
-    title: "Generative AI & LLMs",
-    body: "Integrating LLMs, prompt engineering, RAG systems and Generative AI features into production applications.",
+    title: "Data Analysis",
+    body: "Exploratory data analysis and visualization with Pandas, NumPy, Matplotlib and Seaborn to surface patterns and drive model decisions.",
     rotate: -3,
     bg: "bg-white",
   },
   {
     n: "04",
-    title: "Data & Cloud",
-    body: "End-to-end data pipelines, model deployment, MLOps and cloud delivery using Docker, AWS and CI/CD.",
+    title: "Predictive Modeling",
+    body: "Regression and time-series forecasting with engineered features (moving averages, RSI, lag) — evaluated using R², RMSE and MAE.",
     rotate: 4,
     bg: "bg-[#fff1f1]",
   },
 ];
+
 
 export function Expertise() {
   return (

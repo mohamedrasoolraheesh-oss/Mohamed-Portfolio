@@ -24,11 +24,19 @@ export function HeroRed() {
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-[1.15fr_1fr] md:gap-16 md:px-10">
         {/* Left content */}
         <div>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-sm font-semibold uppercase tracking-[0.25em] text-white/80"
+          >
+            Mohamed Rasool Raheesh
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-[clamp(2.5rem,6.4vw,5.5rem)] font-bold leading-[1.02] tracking-tight text-white"
+            className="mt-3 font-display text-[clamp(2.5rem,6.4vw,5.5rem)] font-bold leading-[1.02] tracking-tight text-white"
           >
             Hi, I'm an
             <br />
@@ -41,9 +49,12 @@ export function HeroRed() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="mt-6 max-w-xl text-base leading-relaxed text-white/90 md:text-lg"
           >
-            I build intelligent, scalable and production-ready AI systems using Python,
-            TensorFlow, PyTorch and modern ML tooling.
+            3rd-year CSE student at Jeppiaar Engineering College, Chennai. I build
+            end-to-end ML pipelines with Python, Scikit-learn, Pandas &amp; NumPy —
+            with hands-on experience across <span className="font-semibold">2 ML internships</span>,
+            NLP, RAG and predictive modeling. Open to internship opportunities.
           </motion.p>
+
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -97,14 +108,15 @@ export function HeroRed() {
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -right-4 top-1/3 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
           >
-            🤖 TensorFlow
+            📊 Scikit-learn
           </motion.div>
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -left-4 bottom-12 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
           >
-            🔥 PyTorch
+            🧠 NLP &amp; RAG
+
           </motion.div>
         </motion.div>
       </div>

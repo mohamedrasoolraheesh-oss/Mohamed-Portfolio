@@ -2,22 +2,23 @@ import { motion } from "framer-motion";
 
 const groups = [
   {
-    title: "Languages & Core",
-    chips: ["Python", "C++", "Java", "SQL", "JavaScript", "TypeScript"],
+    title: "Languages",
+    chips: ["Python", "SQL"],
   },
   {
-    title: "ML & AI Frameworks",
-    chips: ["TensorFlow", "PyTorch", "Scikit-learn", "Keras", "Hugging Face", "OpenCV"],
+    title: "ML / AI",
+    chips: ["Scikit-learn", "NumPy", "Pandas", "Matplotlib", "Seaborn", "TF-IDF", "Cosine Similarity", "RAG"],
   },
   {
-    title: "Generative AI & NLP",
-    chips: ["LLMs", "RAG", "LangChain", "Prompt Engineering", "Transformers", "NLTK"],
+    title: "Concepts",
+    chips: ["Classification", "Regression", "NLP", "EDA", "Feature Engineering", "Cross-Validation", "Hyperparameter Tuning"],
   },
   {
-    title: "Tools & Cloud",
-    chips: ["Git", "GitHub", "Docker", "AWS", "MongoDB", "MySQL", "FastAPI", "Streamlit"],
+    title: "Tools",
+    chips: ["Git", "GitHub", "Jupyter Notebook", "Google Colab", "MySQL", "VS Code"],
   },
 ];
+
 
 export function SkillsStack() {
   return (

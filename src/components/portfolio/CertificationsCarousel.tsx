@@ -3,15 +3,20 @@ import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, FileText } from "lucide-react";
 
 const certs = [
-  { tag: "Cloud • AI", n: "01", title: "AWS Certified AI Practitioner", issuer: "Amazon Web Services" },
-  { tag: "Cloud • AI", n: "02", title: "AWS Academy Graduate – Cloud Foundations", issuer: "AWS Academy" },
-  { tag: "Data Analytics", n: "03", title: "Power BI Data Analyst Associate", issuer: "Microsoft (NASSCOM)" },
-  { tag: "DevOps • Git", n: "04", title: "GitHub Foundations", issuer: "Microsoft / GitHub" },
-  { tag: "Database", n: "05", title: "MongoDB Certified Developer", issuer: "MongoDB Inc." },
-  { tag: "Java Core", n: "06", title: "Oracle Foundations – Java", issuer: "Oracle Corp" },
-  { tag: "Deep Learning", n: "07", title: "NPTEL Elite – Deep Learning", issuer: "IIT Ropar" },
-  { tag: "AI Core", n: "08", title: "NPTEL Elite – Fundamentals of AI", issuer: "NPTEL / IIT" },
+  {
+    tag: "ML Internship",
+    n: "01",
+    title: "Machine Learning Internship Completion",
+    issuer: "Codec Technologies India · Feb – Mar 2026",
+  },
+  {
+    tag: "ML Internship",
+    n: "02",
+    title: "Machine Learning Internship Completion",
+    issuer: "InternPe · Jan 2026",
+  },
 ];
+
 
 export function CertificationsCarousel() {
   const ref = useRef<HTMLDivElement>(null);
@@ -120,8 +125,9 @@ export function CertificationsCarousel() {
           ))}
         </div>
         <div className="mt-8 text-center text-sm italic text-ink/50">
-          Hover a card to flip and verify · Total of {certs.length}+ credentials.
+          Hover a card to flip and verify · {certs.length} verified credentials.
         </div>
+
       </div>
     </section>
   );

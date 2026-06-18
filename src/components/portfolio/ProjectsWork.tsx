@@ -3,57 +3,58 @@ import { Github, ArrowUpRight } from "lucide-react";
 
 const projects = [
   {
-    tag: "AI • NLP • LLM",
-    title: "PolicyGuard AI",
-    desc: "AI-powered policy analysis platform that processes documents, extracts risk models, and provides intelligent Q&A using LLMs.",
-    stack: ["Python", "LLMs", "NLP", "FastAPI"],
+    tag: "NLP • Scikit-learn",
+    title: "AI Interview Simulator",
+    desc: "Mock interview system generating domain-specific questions with NLP-based answer evaluation, semantic scoring, configurable difficulty and feedback reports.",
+    stack: ["Python", "NLP", "Scikit-learn"],
+    href: "https://github.com/mohamedrasoolraheesh-oss/AI-Interview-stimulator",
+  },
+  {
+    tag: "RAG • NLP",
+    title: "AI Knowledge Assistant",
+    desc: "RAG-based conversational assistant with document ingestion pipeline for context-aware grounded responses; reduced hallucinations via retrieval + keyword matching.",
+    stack: ["Python", "RAG", "Pandas"],
+    href: "https://github.com/mohamedrasoolraheesh-oss/AI-Knowledge-Assistant",
+  },
+  {
+    tag: "Classification • Internship",
+    title: "Diabetes Prediction System",
+    desc: "End-to-end classification pipeline with EDA, feature engineering and model selection — achieved 82% accuracy with Random Forest.",
+    stack: ["Python", "Scikit-learn", "Pandas"],
     href: "#",
   },
   {
-    tag: "Computer Vision",
-    title: "Smart Vision Analytics",
-    desc: "Real-time object detection and tracking pipeline with custom CNN models for safety and quality monitoring.",
-    stack: ["PyTorch", "OpenCV", "YOLO"],
+    tag: "Regression • Internship",
+    title: "Car Price Prediction",
+    desc: "Multiple linear regression model with feature selection via correlation analysis; achieved R² = 0.84 on test data.",
+    stack: ["Python", "Regression", "Scikit-learn"],
     href: "#",
   },
   {
-    tag: "Generative AI",
-    title: "GenAI Content Engine",
-    desc: "Production-grade Generative AI system for text and image generation with prompt orchestration and RAG.",
-    stack: ["LangChain", "OpenAI", "Pinecone"],
+    tag: "TF-IDF • Recommender",
+    title: "Movie Recommendation System",
+    desc: "Content-based filtering on 5,000+ movies using TF-IDF vectorization and cosine similarity; sub-second top-N recommendations.",
+    stack: ["Python", "TF-IDF", "Cosine Sim"],
     href: "#",
   },
   {
-    tag: "Predictive Modeling",
-    title: "Financial Forecasting Model",
-    desc: "ML pipeline forecasting financial trends with feature engineering, ensembling and explainability.",
-    stack: ["Scikit-learn", "XGBoost", "Pandas"],
-    href: "#",
-  },
-  {
-    tag: "MLOps • Cloud",
-    title: "MLOps Deployment Stack",
-    desc: "End-to-end MLOps workflow with Docker, CI/CD and cloud delivery for reproducible model serving.",
-    stack: ["Docker", "AWS", "FastAPI"],
-    href: "#",
-  },
-  {
-    tag: "NLP • Chatbot",
-    title: "Conversational AI Agent",
-    desc: "Domain-specific chatbot using transformers, RAG retrieval and tool-using LLM agents.",
-    stack: ["Transformers", "RAG", "Streamlit"],
+    tag: "Time Series",
+    title: "Stock Price Predictor",
+    desc: "Time-series regression with engineered features (moving averages, RSI, lag); evaluated using RMSE and MAE across 30-day windows.",
+    stack: ["Python", "Pandas", "Scikit-learn"],
     href: "#",
   },
 ];
 
 const repos = [
-  { name: "AI Resume Screener", lang: "Python" },
-  { name: "Image Caption Generator", lang: "PyTorch" },
-  { name: "Sentiment Analysis API", lang: "Python" },
-  { name: "RAG Knowledge Base", lang: "Python" },
-  { name: "Stock Price Predictor", lang: "Python" },
-  { name: "Voice Assistant Bot", lang: "Python" },
+  { name: "AI Interview Simulator", lang: "Python" },
+  { name: "AI Knowledge Assistant", lang: "Python" },
+  { name: "Diabetes Prediction", lang: "Scikit-learn" },
+  { name: "Car Price Prediction", lang: "Regression" },
+  { name: "Movie Recommender", lang: "TF-IDF" },
+  { name: "Stock Price Predictor", lang: "Pandas" },
 ];
+
 
 export function ProjectsWork() {
   return (
