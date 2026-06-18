@@ -51,10 +51,11 @@ export function ContactForm() {
 
           <div className="mt-10 flex gap-3">
             <a
-              href="https://linkedin.com/in/rasoolhub"
+              href="https://www.linkedin.com/in/mohamed-rasool-raheesh"
               target="_blank"
               rel="noopener noreferrer"
-              className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 transition hover:border-brand hover:text-brand"
+              aria-label="LinkedIn profile"
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 transition hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
             >
               <Linkedin className="h-4 w-4" />
             </a>
@@ -62,10 +63,19 @@ export function ContactForm() {
               href="https://github.com/mohamedrasoolraheesh-oss"
               target="_blank"
               rel="noopener noreferrer"
-              className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 transition hover:border-brand hover:text-brand"
+              aria-label="GitHub profile"
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 transition hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
             >
               <Github className="h-4 w-4" />
             </a>
+            <a
+              href="mailto:mohamedrasoolraheesh@gmail.com"
+              aria-label="Send email"
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/5 transition hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            >
+              <Mail className="h-4 w-4" />
+            </a>
+
           </div>
         </div>
 
