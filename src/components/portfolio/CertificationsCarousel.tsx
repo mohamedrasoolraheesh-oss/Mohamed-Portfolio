@@ -1,133 +1,149 @@
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, FileText } from "lucide-react";
+import { FileText, ExternalLink } from "lucide-react";
+import googleML from "../../assets/certs/google-ml.pdf.asset.json";
+import jsInt from "../../assets/certs/js-intermediate.pdf.asset.json";
+import codecAI from "../../assets/certs/codec-ai.jpeg.asset.json";
+import sqlBasic from "../../assets/certs/sql-basic.pdf.asset.json";
+import restApi from "../../assets/certs/rest-api.pdf.asset.json";
+import sqlInt from "../../assets/certs/sql-intermediate.pdf.asset.json";
 
-const certs = [
+type Cert = {
+  tag: string;
+  n: string;
+  title: string;
+  issuer: string;
+  url: string;
+};
+
+const certs: Cert[] = [
   {
     tag: "ML Internship",
     n: "01",
-    title: "Machine Learning Internship Completion",
-    issuer: "Codec Technologies India · Feb – Mar 2026",
+    title: "Artificial Intelligence Internship",
+    issuer: "Codec Technologies · AICTE & ICAC · Feb–Mar 2026",
+    url: codecAI.url,
   },
   {
     tag: "ML Internship",
     n: "02",
     title: "Machine Learning Internship Completion",
     issuer: "InternPe · Jan 2026",
+    url: "#",
+  },
+  {
+    tag: "Machine Learning",
+    n: "03",
+    title: "Google Machine Learning Certificate",
+    issuer: "Google",
+    url: googleML.url,
+  },
+  {
+    tag: "Database",
+    n: "04",
+    title: "SQL (Intermediate) Certificate",
+    issuer: "HackerRank",
+    url: sqlInt.url,
+  },
+  {
+    tag: "Database",
+    n: "05",
+    title: "SQL (Basic) Certificate",
+    issuer: "HackerRank",
+    url: sqlBasic.url,
+  },
+  {
+    tag: "Backend",
+    n: "06",
+    title: "REST API (Intermediate) Certificate",
+    issuer: "HackerRank",
+    url: restApi.url,
+  },
+  {
+    tag: "Programming",
+    n: "07",
+    title: "JavaScript (Intermediate) Certificate",
+    issuer: "HackerRank",
+    url: jsInt.url,
   },
 ];
 
+function Card({ c }: { c: Cert }) {
+  return (
+    <a
+      href={c.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative flex h-[280px] w-[300px] shrink-0 flex-col justify-between rounded-2xl border border-ink/10 bg-white p-6 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.3)] transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_25px_50px_-25px_rgba(255,46,46,0.35)]"
+    >
+      <div className="flex items-center justify-between">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">
+          {c.tag}
+        </span>
+        <span className="font-display text-3xl font-bold text-ink/15">{c.n}</span>
+      </div>
+      <div>
+        <FileText className="mb-3 h-6 w-6 text-ink/60" />
+        <h3 className="font-display text-lg font-bold leading-snug text-ink">
+          {c.title}
+        </h3>
+        <div className="mt-2 text-xs text-ink/50">Issued by</div>
+        <div className="text-sm font-medium text-ink/80">{c.issuer}</div>
+      </div>
+      <div className="flex items-center justify-between text-[11px] font-medium text-ink/40">
+        <span>Verified Credential</span>
+        <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </div>
+    </a>
+  );
+}
 
 export function CertificationsCarousel() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [flipped, setFlipped] = useState<number | null>(null);
-
-  const scroll = (dir: 1 | -1) => {
-    ref.current?.scrollBy({ left: dir * 360, behavior: "smooth" });
-  };
+  // duplicate the list for seamless infinite loop
+  const loop = [...certs, ...certs];
 
   return (
-    <section id="certifications" className="relative bg-white py-24 md:py-32">
+    <section id="certifications" className="relative overflow-hidden bg-white py-24 md:py-32">
       <div className="absolute inset-0 grid-bg opacity-50" />
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <span className="pill text-ink/70">System Badges</span>
-            <h2 className="mt-5 font-display text-[clamp(2rem,4.6vw,3.75rem)] font-bold leading-[1.05] text-ink">
-              Professional <span className="underline-brand">Credentials</span>
-            </h2>
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll(-1)}
-              aria-label="Previous"
-              className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 bg-white text-ink transition hover:border-brand hover:text-brand"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={() => scroll(1)}
-              aria-label="Next"
-              className="grid h-11 w-11 place-items-center rounded-full border border-ink/15 bg-white text-ink transition hover:border-brand hover:text-brand"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
+        <div className="mb-12 max-w-2xl">
+          <span className="pill text-ink/70">System Badges</span>
+          <h2 className="mt-5 font-display text-[clamp(2rem,4.6vw,3.75rem)] font-bold leading-[1.05] text-ink">
+            Professional <span className="underline-brand">Credentials</span>
+          </h2>
+          <p className="mt-5 text-base text-ink/60 md:text-lg">
+            {certs.length} verified certificates across ML, databases, backend & programming.
+          </p>
         </div>
+      </div>
 
-        <div
-          ref={ref}
-          className="-mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-6 scrollbar-thin"
-          style={{ scrollbarWidth: "thin" }}
+      {/* Marquee */}
+      <div
+        className="relative mt-4"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+        }}
+      >
+        <motion.div
+          className="flex gap-5 py-4"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            duration: 40,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+          style={{ width: "max-content" }}
         >
-          {certs.map((c, i) => (
-            <motion.div
-              key={c.n}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
-              className="relative h-[300px] w-[300px] shrink-0 snap-start"
-              style={{ perspective: 1200 }}
-              onMouseEnter={() => setFlipped(i)}
-              onMouseLeave={() => setFlipped(null)}
-            >
-              <motion.div
-                animate={{ rotateY: flipped === i ? 180 : 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="relative h-full w-full"
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                {/* front */}
-                <div
-                  className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-ink/10 bg-white p-6 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.3)]"
-                  style={{ backfaceVisibility: "hidden" }}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">
-                      {c.tag}
-                    </span>
-                    <span className="font-display text-3xl font-bold text-ink/15">
-                      {c.n}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="font-display text-lg font-bold leading-snug text-ink">
-                      {c.title}
-                    </h3>
-                    <div className="mt-2 text-xs text-ink/50">Issued by</div>
-                    <div className="text-sm font-medium text-ink/80">{c.issuer}</div>
-                  </div>
-                  <div className="flex items-center justify-between text-[11px] font-medium text-ink/40">
-                    <span>Secured Node</span>
-                    <span>SYS ID: #{c.n}VERIFIED</span>
-                  </div>
-                </div>
-
-                {/* back */}
-                <div
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-2xl bg-ink p-6 text-white shadow-xl"
-                  style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-                >
-                  <FileText className="h-10 w-10 text-brand" />
-                  <div className="text-center font-display text-lg font-bold">
-                    {c.title}
-                  </div>
-                  <a
-                    href="#"
-                    className="rounded-full bg-brand px-5 py-2 text-xs font-semibold text-white"
-                  >
-                    View Certificate
-                  </a>
-                </div>
-              </motion.div>
-            </motion.div>
+          {loop.map((c, i) => (
+            <Card key={`${c.n}-${i}`} c={c} />
           ))}
-        </div>
-        <div className="mt-8 text-center text-sm italic text-ink/50">
-          Hover a card to flip and verify · {certs.length} verified credentials.
-        </div>
+        </motion.div>
+      </div>
 
+      <div className="mt-8 text-center text-sm italic text-ink/50">
+        Hover to open and verify · {certs.length} credentials and counting.
       </div>
     </section>
   );
