@@ -60,13 +60,15 @@ export function Nav() {
           </a>
           <button
             onClick={() => setOpen((s) => !s)}
-            aria-label="Toggle menu"
-            className="grid h-10 w-10 place-items-center rounded-full border border-ink/10 bg-white text-ink lg:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="grid h-11 w-11 place-items-center rounded-full border border-ink/10 bg-white text-ink lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             <span className="block h-0.5 w-4 bg-current" />
             <span className="mt-1 block h-0.5 w-4 bg-current" />
             <span className="mt-1 block h-0.5 w-4 bg-current" />
           </button>
+
         </div>
       </nav>
 
