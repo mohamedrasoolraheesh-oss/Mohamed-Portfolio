@@ -38,14 +38,15 @@ export function ContactForm() {
               <span className="grid h-10 w-10 place-items-center rounded-full bg-white/5">
                 <MapPin className="h-4 w-4" />
               </span>
-              Available worldwide · Remote-friendly
+              Chennai, India · Open to internships
             </div>
-            <div className="flex items-center gap-3 text-sm text-white/80">
+            <a href="tel:+919043507714" className="flex items-center gap-3 text-sm text-white/80 hover:text-white">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-white/5">
                 <Phone className="h-4 w-4" />
               </span>
-              On request
-            </div>
+              +91 90435 07714
+            </a>
+
           </div>
 
           <div className="mt-10 flex gap-3">

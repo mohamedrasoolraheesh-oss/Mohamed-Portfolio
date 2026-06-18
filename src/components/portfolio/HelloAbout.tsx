@@ -49,18 +49,22 @@ export function HelloAbout() {
             className="mt-5 max-w-xl text-base leading-relaxed text-white/95 md:text-lg"
           >
             Hi, my name is{" "}
-            <span className="font-semibold text-ink">MOHAMED RASOOL</span>, a passionate
-            AI &amp; Machine Learning engineer dedicated to building intelligent, scalable
-            and impactful applications powered by modern AI.
+            <span className="font-semibold text-ink">MOHAMED RASOOL RAHEESH</span> — a
+            motivated AI/ML engineering student from Chennai, currently pursuing B.E. in
+            Artificial Intelligence &amp; Machine Learning at Jeppiaar Engineering College
+            (2024–2028). I've completed 2 ML internships building real-world solutions in
+            classification, regression, NLP and RAG-based assistants, and I'm seeking
+            internship roles to deliver impactful, data-driven products.
           </motion.p>
 
           <div className="mt-8 flex flex-wrap items-center gap-6 text-3xl">
             <span title="Python">🐍</span>
-            <span title="TensorFlow">🧠</span>
-            <span title="PyTorch">🔥</span>
-            <span title="Scikit">📊</span>
-            <span title="OpenAI">🤖</span>
+            <span title="Pandas">🐼</span>
+            <span title="Scikit-learn">📊</span>
+            <span title="NLP">🧠</span>
+            <span title="RAG">🔎</span>
           </div>
+
         </div>
       </div>
 
