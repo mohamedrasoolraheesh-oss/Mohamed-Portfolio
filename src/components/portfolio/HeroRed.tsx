@@ -121,18 +121,22 @@ export function HeroRed() {
         </motion.div>
       </div>
 
-      {/* Unmute reel pill (right side) */}
-      <button
-        onClick={() => setMuted((m) => !m)}
+      {/* Resume/profile pill (right side) */}
+      <a
+        href="https://github.com/mohamedrasoolraheesh-oss"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Visit my GitHub profile"
         className="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-2 md:flex"
       >
         <span className="grid h-12 w-12 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition hover:bg-white/25">
           {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
         </span>
         <span className="text-[10px] font-semibold tracking-[0.25em] text-white/80">
-          {muted ? "UNMUTE REEL" : "MUTE REEL"}
+          VIEW GITHUB
         </span>
-      </button>
+      </a>
+
     </section>
   );
 }

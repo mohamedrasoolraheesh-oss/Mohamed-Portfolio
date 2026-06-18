@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Github, ArrowUpRight } from "lucide-react";
 
+const GH = "https://github.com/mohamedrasoolraheesh-oss";
+
 const projects = [
   {
     tag: "NLP • Scikit-learn",
@@ -21,30 +23,31 @@ const projects = [
     title: "Diabetes Prediction System",
     desc: "End-to-end classification pipeline with EDA, feature engineering and model selection — achieved 82% accuracy with Random Forest.",
     stack: ["Python", "Scikit-learn", "Pandas"],
-    href: "#",
+    href: GH,
   },
   {
     tag: "Regression • Internship",
     title: "Car Price Prediction",
     desc: "Multiple linear regression model with feature selection via correlation analysis; achieved R² = 0.84 on test data.",
     stack: ["Python", "Regression", "Scikit-learn"],
-    href: "#",
+    href: GH,
   },
   {
     tag: "TF-IDF • Recommender",
     title: "Movie Recommendation System",
     desc: "Content-based filtering on 5,000+ movies using TF-IDF vectorization and cosine similarity; sub-second top-N recommendations.",
     stack: ["Python", "TF-IDF", "Cosine Sim"],
-    href: "#",
+    href: GH,
   },
   {
     tag: "Time Series",
     title: "Stock Price Predictor",
     desc: "Time-series regression with engineered features (moving averages, RSI, lag); evaluated using RMSE and MAE across 30-day windows.",
     stack: ["Python", "Pandas", "Scikit-learn"],
-    href: "#",
+    href: GH,
   },
 ];
+
 
 const repos = [
   { name: "AI Interview Simulator", lang: "Python" },
