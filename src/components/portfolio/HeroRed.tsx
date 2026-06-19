@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Volume2, VolumeX, Sparkles } from "lucide-react";
 import { useState } from "react";
-import portraitAsset from "../../assets/rasool-portrait.jpeg.asset.json";
+import heroVideo from "../../assets/hero.mp4.asset.json";
 
 export function HeroRed() {
   const [muted, setMuted] = useState(true);
@@ -86,13 +86,23 @@ export function HeroRed() {
           className="relative mx-auto w-full max-w-md"
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.45)]">
-            <img
-              src={portraitAsset.url}
-              alt="Mohamed Rasool"
+            <video
+              src={heroVideo.url}
+              autoPlay
+              loop
+              muted={muted}
+              playsInline
               className="h-full w-full object-cover"
-              draggable={false}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#ff2e2e]/40 via-transparent to-transparent mix-blend-multiply" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#ff2e2e]/40 via-transparent to-transparent mix-blend-multiply" />
+            <button
+              type="button"
+              onClick={() => setMuted((m) => !m)}
+              aria-label={muted ? "Unmute video" : "Mute video"}
+              className="absolute bottom-4 right-4 grid h-11 w-11 place-items-center rounded-full bg-black/40 text-white backdrop-blur transition hover:bg-black/60"
+            >
+              {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+            </button>
           </div>
 
           {/* floating tech badges */}
