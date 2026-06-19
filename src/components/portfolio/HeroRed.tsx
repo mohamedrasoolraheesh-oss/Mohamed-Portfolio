@@ -101,24 +101,26 @@ export function HeroRed() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-6 top-10 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
+            className="absolute -left-6 top-10 flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
           >
-            🐍 Python
+            <Code2 className="h-4 w-4 text-brand" />
+            Python
           </motion.div>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -right-4 top-1/3 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
+            className="absolute -right-4 top-1/3 flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
           >
-            📊 Scikit-learn
+            <BarChart3 className="h-4 w-4 text-brand" />
+            Scikit-learn
           </motion.div>
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-4 bottom-12 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
+            className="absolute -left-4 bottom-12 flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
           >
-            🧠 NLP &amp; RAG
-
+            <BrainCircuit className="h-4 w-4 text-brand" />
+            NLP &amp; RAG
           </motion.div>
         </motion.div>
       </div>
