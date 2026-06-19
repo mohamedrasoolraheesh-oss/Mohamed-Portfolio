@@ -95,14 +95,6 @@ export function HeroRed() {
               className="h-full w-full object-cover"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#ff2e2e]/40 via-transparent to-transparent mix-blend-multiply" />
-            <button
-              type="button"
-              onClick={() => setMuted((m) => !m)}
-              aria-label={muted ? "Unmute video" : "Mute video"}
-              className="absolute bottom-4 right-4 grid h-11 w-11 place-items-center rounded-full bg-black/40 text-white backdrop-blur transition hover:bg-black/60"
-            >
-              {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-            </button>
           </div>
 
           {/* floating tech badges */}
@@ -136,13 +128,13 @@ export function HeroRed() {
         type="button"
         onClick={() => setMuted((m) => !m)}
         aria-label={muted ? "Unmute video" : "Mute video"}
-        className="absolute right-6 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-2 md:flex cursor-pointer group"
+        className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 cursor-pointer group z-10"
       >
         <span className="grid h-12 w-12 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition group-hover:bg-white/25">
           {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
         </span>
         <span className="text-[10px] font-semibold tracking-[0.25em] text-white/80 transition group-hover:text-white">
-          {muted ? "UNMUTE REEL" : "MUTE REEL"}
+          {muted ? "UNMUTE" : "MUTE"}
         </span>
       </button>
 
