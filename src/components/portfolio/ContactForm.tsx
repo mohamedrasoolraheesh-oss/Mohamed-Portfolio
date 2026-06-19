@@ -82,8 +82,22 @@ export function ContactForm() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            const form = e.currentTarget;
+            const data = new FormData(form);
+            const name = String(data.get("name") || "");
+            const email = String(data.get("email") || "");
+            const subject = String(data.get("subject") || "");
+            const message = String(data.get("message") || "");
+            const text =
+              `Hi Mohamed,%0A%0A` +
+              `*Name:* ${encodeURIComponent(name)}%0A` +
+              `*Email:* ${encodeURIComponent(email)}%0A` +
+              (subject ? `*Subject:* ${encodeURIComponent(subject)}%0A` : "") +
+              `%0A${encodeURIComponent(message)}`;
+            window.open(`https://wa.me/919043507714?text=${text}`, "_blank", "noopener,noreferrer");
             setSent(true);
             setTimeout(() => setSent(false), 3000);
+            form.reset();
           }}
           className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur md:p-8"
         >
@@ -92,6 +106,7 @@ export function ContactForm() {
               <span className="text-xs font-medium text-white/60">Name</span>
               <input
                 required
+                name="name"
                 className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-brand"
                 placeholder="Your name"
               />
@@ -101,6 +116,7 @@ export function ContactForm() {
               <input
                 required
                 type="email"
+                name="email"
                 className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-brand"
                 placeholder="you@example.com"
               />
@@ -109,6 +125,7 @@ export function ContactForm() {
           <label className="mt-4 block">
             <span className="text-xs font-medium text-white/60">Subject</span>
             <input
+              name="subject"
               className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-brand"
               placeholder="What's it about?"
             />
@@ -117,6 +134,7 @@ export function ContactForm() {
             <span className="text-xs font-medium text-white/60">Message</span>
             <textarea
               required
+              name="message"
               rows={5}
               className="mt-1.5 w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-brand"
               placeholder="Tell me about your project..."
@@ -124,13 +142,13 @@ export function ContactForm() {
           </label>
           <label className="mt-4 flex items-start gap-2 text-xs text-white/60">
             <input type="checkbox" required className="mt-0.5 accent-brand" />
-            I give permission to be contacted at this email address.
+            I give permission to be contacted on WhatsApp at +91 90435 07714.
           </label>
           <button
             type="submit"
             className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-10px_rgba(255,46,46,0.6)] transition hover:bg-brand-deep sm:w-auto"
           >
-            {sent ? "Sent ✓" : "Send Message"}
+            {sent ? "Opening WhatsApp ✓" : "Send via WhatsApp"}
             <Send className="h-4 w-4" />
           </button>
         </form>
