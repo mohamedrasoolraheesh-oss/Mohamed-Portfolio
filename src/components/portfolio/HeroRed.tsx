@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Volume2, VolumeX, Sparkles } from "lucide-react";
+import { ArrowUpRight, Volume2, VolumeX, Sparkles, Code2, BarChart3, BrainCircuit } from "lucide-react";
 import { useState } from "react";
 import heroVideo from "../../assets/hero.mp4.asset.json";
 
