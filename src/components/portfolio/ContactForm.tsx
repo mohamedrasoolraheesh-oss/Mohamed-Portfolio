@@ -143,13 +143,13 @@ export function ContactForm() {
           </label>
           <label className="mt-4 flex items-start gap-2 text-xs text-white/60">
             <input type="checkbox" required className="mt-0.5 accent-brand" />
-            I give permission to be contacted on WhatsApp at +91 90435 07714.
+            I agree to be contacted by email at mohamedrasoolraheesh@gmail.com.
           </label>
           <button
             type="submit"
             className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-10px_rgba(255,46,46,0.6)] transition hover:bg-brand-deep sm:w-auto"
           >
-            {sent ? "Opening WhatsApp ✓" : "Send via WhatsApp"}
+            {sent ? "Opening email ✓" : "Send via Email"}
             <Send className="h-4 w-4" />
           </button>
         </form>
