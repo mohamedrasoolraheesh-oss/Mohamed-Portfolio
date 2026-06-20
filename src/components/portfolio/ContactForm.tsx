@@ -86,15 +86,16 @@ export function ContactForm() {
             const data = new FormData(form);
             const name = String(data.get("name") || "");
             const email = String(data.get("email") || "");
-            const subject = String(data.get("subject") || "");
+            const subject = String(data.get("subject") || "Portfolio enquiry");
             const message = String(data.get("message") || "");
-            const text =
-              `Hi Mohamed,%0A%0A` +
-              `*Name:* ${encodeURIComponent(name)}%0A` +
-              `*Email:* ${encodeURIComponent(email)}%0A` +
-              (subject ? `*Subject:* ${encodeURIComponent(subject)}%0A` : "") +
-              `%0A${encodeURIComponent(message)}`;
-            window.open(`https://wa.me/919043507714?text=${text}`, "_blank", "noopener,noreferrer");
+            const body =
+              `Hi Mohamed,\n\n` +
+              `${message}\n\n` +
+              `—\nFrom: ${name}\nEmail: ${email}`;
+            const mailto = `mailto:mohamedrasoolraheesh@gmail.com?subject=${encodeURIComponent(
+              subject
+            )}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailto;
             setSent(true);
             setTimeout(() => setSent(false), 3000);
             form.reset();
