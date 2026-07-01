@@ -93,7 +93,7 @@ export function HeroRed() {
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.45)]">
             <video
-              src={heroVideo.url}
+              src={HERO_VIDEO_URL}
               autoPlay
               loop
               muted={muted}
