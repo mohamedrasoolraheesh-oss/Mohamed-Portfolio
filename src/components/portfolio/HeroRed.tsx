@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Volume2, VolumeX, Sparkles, Code2, BarChart3, BrainCircuit } from "lucide-react";
 import { useState } from "react";
-import heroVideo from "../../assets/hero.mp4.asset.json";
+import heroVideoAsset from "../../assets/hero.mp4.asset.json";
+
+// Cloud-hosted hero video. Prefer a Cloudinary URL via env var so it works
+// identically in local dev and on Vercel production. Falls back to the
+// Lovable CDN copy (also globally distributed) when no override is set.
+const HERO_VIDEO_URL =
+  (import.meta.env.VITE_HERO_VIDEO_URL as string | undefined) ?? heroVideoAsset.url;
 
 export function HeroRed() {
   const [muted, setMuted] = useState(true);
@@ -87,7 +93,7 @@ export function HeroRed() {
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.45)]">
             <video
-              src={heroVideo.url}
+              src={HERO_VIDEO_URL}
               autoPlay
               loop
               muted={muted}
