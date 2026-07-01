@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { FileText, ExternalLink } from "lucide-react";
+import { toAssetUrl } from "../../lib/asset-url";
 import googleML from "../../assets/certs/google-ml.pdf.asset.json";
 import jsInt from "../../assets/certs/js-intermediate.pdf.asset.json";
 import codecAI from "../../assets/certs/codec-ai.jpeg.asset.json";
