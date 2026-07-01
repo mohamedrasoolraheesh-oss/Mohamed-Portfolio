@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { Mail, Linkedin, Github, Send, Phone, MapPin } from "lucide-react";
 
 export function ContactForm() {
@@ -97,6 +98,9 @@ export function ContactForm() {
             )}&body=${encodeURIComponent(body)}`;
             window.location.href = mailto;
             setSent(true);
+            toast.success("Message prepared!", {
+              description: "Your email client should open shortly. Just hit send to reach me.",
+            });
             setTimeout(() => setSent(false), 3000);
             form.reset();
           }}
