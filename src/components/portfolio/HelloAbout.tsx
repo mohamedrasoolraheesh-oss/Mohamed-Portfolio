@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import portraitAsset from "../../assets/rasool-portrait.jpeg.asset.json";
+import { toAssetUrl } from "../../lib/asset-url";
 
 export function HelloAbout() {
   return (
@@ -20,7 +21,7 @@ export function HelloAbout() {
           </div>
           <div className="relative rounded-[1.5rem] border-[10px] border-ink bg-ink p-0 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)]">
             <img
-              src={portraitAsset.url}
+              src={toAssetUrl(portraitAsset)}
               alt="Mohamed Rasool"
               className="aspect-[4/5] w-full rounded-[0.6rem] object-cover"
             />
