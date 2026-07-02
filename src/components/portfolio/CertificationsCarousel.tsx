@@ -9,12 +9,21 @@ import sqlBasic from "../../assets/certs/sql-basic.pdf.asset.json";
 import restApi from "../../assets/certs/rest-api.pdf.asset.json";
 import sqlInt from "../../assets/certs/sql-intermediate.pdf.asset.json";
 
+import thumbCodec from "../../assets/certs/thumb-codec-ai.jpg";
+import thumbInternPe from "../../assets/certs/thumb-internpe.jpg";
+import thumbGoogle from "../../assets/certs/thumb-google-ml.jpg";
+import thumbSqlInt from "../../assets/certs/thumb-sql-int.jpg";
+import thumbSqlBasic from "../../assets/certs/thumb-sql-basic.jpg";
+import thumbRest from "../../assets/certs/thumb-rest-api.jpg";
+import thumbJs from "../../assets/certs/thumb-js-int.jpg";
+
 type Cert = {
   tag: string;
   n: string;
   title: string;
   issuer: string;
   url: string;
+  image: string;
 };
 
 const certs: Cert[] = [
@@ -24,6 +33,7 @@ const certs: Cert[] = [
     title: "Artificial Intelligence Internship",
     issuer: "Codec Technologies · AICTE & ICAC · Feb–Mar 2026",
     url: toAssetUrl(codecAI),
+    image: thumbCodec,
   },
   {
     tag: "ML Internship",
@@ -31,6 +41,7 @@ const certs: Cert[] = [
     title: "Machine Learning Internship Completion",
     issuer: "InternPe · Jan 2026",
     url: "https://www.linkedin.com/in/mohamed-rasool-raheesh",
+    image: thumbInternPe,
   },
 
   {
@@ -39,6 +50,7 @@ const certs: Cert[] = [
     title: "Google Machine Learning Certificate",
     issuer: "Google",
     url: toAssetUrl(googleML),
+    image: thumbGoogle,
   },
   {
     tag: "Database",
@@ -46,6 +58,7 @@ const certs: Cert[] = [
     title: "SQL (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(sqlInt),
+    image: thumbSqlInt,
   },
   {
     tag: "Database",
@@ -53,6 +66,7 @@ const certs: Cert[] = [
     title: "SQL (Basic) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(sqlBasic),
+    image: thumbSqlBasic,
   },
   {
     tag: "Backend",
@@ -60,6 +74,7 @@ const certs: Cert[] = [
     title: "REST API (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(restApi),
+    image: thumbRest,
   },
   {
     tag: "Programming",
@@ -67,6 +82,7 @@ const certs: Cert[] = [
     title: "JavaScript (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(jsInt),
+    image: thumbJs,
   },
 ];
 
@@ -76,25 +92,50 @@ function Card({ c }: { c: Cert }) {
       href={c.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex h-[280px] w-[300px] shrink-0 flex-col justify-between rounded-2xl border border-ink/10 bg-white p-6 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.3)] transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_25px_50px_-25px_rgba(255,46,46,0.35)]"
+      className="group relative flex h-[360px] w-[300px] shrink-0 flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-[0_20px_50px_-30px_rgba(0,0,0,0.3)] transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_25px_50px_-25px_rgba(255,46,46,0.35)]"
     >
-      <div className="flex items-center justify-between">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">
-          {c.tag}
+      {/* Image header */}
+      <div className="relative h-[150px] w-full overflow-hidden bg-ink">
+        <img
+          src={c.image}
+          alt=""
+          loading="lazy"
+          width={768}
+          height={512}
+          className="h-full w-full object-cover opacity-90 blur-[1.5px] scale-110 transition-transform duration-700 group-hover:scale-125"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/20" />
+        <div className="absolute inset-0 grid-bg opacity-10" />
+        <div className="absolute left-4 top-4 flex items-center gap-2">
+          <span className="rounded-full bg-brand px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white shadow-md">
+            {c.tag}
+          </span>
+        </div>
+        <span className="absolute right-4 top-3 font-display text-3xl font-bold text-white/30">
+          {c.n}
         </span>
-        <span className="font-display text-3xl font-bold text-ink/15">{c.n}</span>
+        <div className="absolute bottom-3 left-4 flex items-center gap-2 text-white/90">
+          <FileText className="h-4 w-4" />
+          <span className="text-[11px] font-medium uppercase tracking-widest">Certificate</span>
+        </div>
       </div>
-      <div>
-        <FileText className="mb-3 h-6 w-6 text-ink/60" />
-        <h3 className="font-display text-lg font-bold leading-snug text-ink">
-          {c.title}
-        </h3>
-        <div className="mt-2 text-xs text-ink/50">Issued by</div>
-        <div className="text-sm font-medium text-ink/80">{c.issuer}</div>
-      </div>
-      <div className="flex items-center justify-between text-[11px] font-medium text-ink/40">
-        <span>Verified Credential</span>
-        <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+
+      {/* Body */}
+      <div className="flex flex-1 flex-col justify-between p-5">
+        <div>
+          <h3 className="font-display text-[15px] font-bold leading-snug text-ink line-clamp-2">
+            {c.title}
+          </h3>
+          <div className="mt-2 text-[10px] uppercase tracking-widest text-ink/40">Issued by</div>
+          <div className="text-xs font-medium text-ink/80 line-clamp-1">{c.issuer}</div>
+        </div>
+        <div className="mt-3 flex items-center justify-between text-[11px] font-medium text-ink/40">
+          <span className="inline-flex items-center gap-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand" />
+            Verified Credential
+          </span>
+          <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </div>
       </div>
     </a>
   );
