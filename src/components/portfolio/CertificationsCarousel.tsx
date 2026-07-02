@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { FileText, ExternalLink } from "lucide-react";
+import { motion, useAnimationControls } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { FileText, ExternalLink, ArrowLeft, ArrowRight } from "lucide-react";
 import { toAssetUrl } from "../../lib/asset-url";
 import googleML from "../../assets/certs/google-ml.pdf.asset.json";
 import jsInt from "../../assets/certs/js-intermediate.pdf.asset.json";
@@ -103,18 +104,116 @@ export function CertificationsCarousel() {
   // duplicate the list for seamless infinite loop
   const loop = [...certs, ...certs];
 
+  const controls = useAnimationControls();
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [paused, setPaused] = useState(false);
+  const pauseTimer = useRef<number | null>(null);
+  const DURATION = 40; // seconds for full -50% loop
+  const CARD_STEP = 320; // card width (300) + gap (20)
+
+  const startLoop = (fromPercent: number) => {
+    const remaining = ((fromPercent + 50) / 50) * DURATION; // time to reach -50%
+    controls.start({
+      x: ["0%", "-50%"],
+      transition: { duration: DURATION, ease: "linear", repeat: Infinity },
+      // initial offset via sequence:
+    });
+    // simpler: just restart the full loop from current position
+    controls.set({ x: `${fromPercent}%` });
+    controls.start({
+      x: "-50%",
+      transition: { duration: Math.max(0.1, remaining), ease: "linear" },
+    }).then(() => {
+      controls.set({ x: "0%" });
+      controls.start({
+        x: "-50%",
+        transition: { duration: DURATION, ease: "linear", repeat: Infinity },
+      });
+    });
+  };
+
+  useEffect(() => {
+    controls.start({
+      x: "-50%",
+      transition: { duration: DURATION, ease: "linear", repeat: Infinity },
+    });
+    return () => {
+      if (pauseTimer.current) window.clearTimeout(pauseTimer.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getCurrentPercent = () => {
+    const el = trackRef.current;
+    if (!el) return 0;
+    const style = window.getComputedStyle(el);
+    const matrix = new DOMMatrixReadOnly(style.transform);
+    const width = el.getBoundingClientRect().width || 1;
+    return (matrix.m41 / width) * 100;
+  };
+
+  const nudge = (dir: "prev" | "next") => {
+    const el = trackRef.current;
+    if (!el) return;
+    controls.stop();
+    setPaused(true);
+
+    const width = el.getBoundingClientRect().width || 1;
+    const currentPx = new DOMMatrixReadOnly(window.getComputedStyle(el).transform).m41;
+    let nextPx = currentPx + (dir === "next" ? -CARD_STEP : CARD_STEP);
+    // wrap within [-width/2, 0]
+    const half = width / 2;
+    if (nextPx > 0) nextPx -= half;
+    if (nextPx < -half) nextPx += half;
+
+    controls.start({
+      x: nextPx,
+      transition: { duration: 0.5, ease: "easeOut" },
+    });
+
+    if (pauseTimer.current) window.clearTimeout(pauseTimer.current);
+    pauseTimer.current = window.setTimeout(() => {
+      setPaused(false);
+      const percent = (nextPx / width) * 100;
+      startLoop(percent);
+    }, 5000);
+  };
+
+  const btnClass =
+    "flex h-11 w-11 items-center justify-center rounded-full border border-brand/30 bg-white text-brand shadow-[0_10px_25px_-15px_rgba(255,46,46,0.6)] transition hover:bg-brand hover:text-white hover:border-brand disabled:opacity-40";
+
   return (
     <section id="certifications" className="relative overflow-hidden bg-white py-24 md:py-32">
       <div className="absolute inset-0 grid-bg opacity-50" />
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        <div className="mb-12 max-w-2xl">
-          <span className="pill text-ink/70">System Badges</span>
-          <h2 className="mt-5 font-display text-[clamp(2rem,4.6vw,3.75rem)] font-bold leading-[1.05] text-ink">
-            Professional <span className="underline-brand">Credentials</span>
-          </h2>
-          <p className="mt-5 text-base text-ink/60 md:text-lg">
-            {certs.length} verified certificates across ML, databases, backend & programming.
-          </p>
+        <div className="mb-12 flex items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <span className="pill text-ink/70">System Badges</span>
+            <h2 className="mt-5 font-display text-[clamp(2rem,4.6vw,3.75rem)] font-bold leading-[1.05] text-ink">
+              Professional <span className="underline-brand">Credentials</span>
+            </h2>
+            <p className="mt-5 text-base text-ink/60 md:text-lg">
+              {certs.length} verified certificates across ML, databases, backend & programming.
+            </p>
+          </div>
+          <div className="hidden shrink-0 items-center gap-3 md:flex">
+            <button
+              type="button"
+              aria-label="Previous certificate"
+              onClick={() => nudge("prev")}
+              className={btnClass}
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Next certificate"
+              onClick={() => nudge("next")}
+              className={btnClass}
+            >
+              <ArrowRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -129,13 +228,10 @@ export function CertificationsCarousel() {
         }}
       >
         <motion.div
+          ref={trackRef}
           className="flex gap-5 py-4"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            duration: 40,
-            ease: "linear",
-            repeat: Infinity,
-          }}
+          animate={controls}
+          initial={{ x: "0%" }}
           style={{ width: "max-content" }}
         >
           {loop.map((c, i) => (
@@ -144,8 +240,28 @@ export function CertificationsCarousel() {
         </motion.div>
       </div>
 
-      <div className="mt-8 text-center text-sm italic text-ink/50">
-        Hover to open and verify · {certs.length} credentials and counting.
+      {/* Mobile arrows */}
+      <div className="mt-6 flex items-center justify-center gap-3 md:hidden">
+        <button
+          type="button"
+          aria-label="Previous certificate"
+          onClick={() => nudge("prev")}
+          className={btnClass}
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          aria-label="Next certificate"
+          onClick={() => nudge("next")}
+          className={btnClass}
+        >
+          <ArrowRight className="h-5 w-5" />
+        </button>
+      </div>
+
+      <div className="mt-6 text-center text-sm italic text-ink/50">
+        {paused ? "Paused · resuming shortly…" : "Hover to open and verify"} · {certs.length} credentials and counting.
       </div>
     </section>
   );
