@@ -40,7 +40,7 @@ const certs: Cert[] = [
     n: "02",
     title: "Machine Learning Internship Completion",
     issuer: "InternPe · Jan 2026",
-    url: "https://www.linkedin.com/in/mohamed-rasool-raheesh",
+    url: "https://www.linkedin.com/in/rebel07/",
     image: thumbInternPe,
   },
 
