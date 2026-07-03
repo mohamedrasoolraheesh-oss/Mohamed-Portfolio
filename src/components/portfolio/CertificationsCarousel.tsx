@@ -95,28 +95,28 @@ function Card({ c }: { c: Cert }) {
       className="group relative flex h-[360px] w-[300px] shrink-0 flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-[0_20px_50px_-30px_rgba(0,0,0,0.3)] transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_25px_50px_-25px_rgba(255,46,46,0.35)]"
     >
       {/* Image header */}
-      <div className="relative h-[150px] w-full overflow-hidden bg-ink">
+      <div className="relative h-[180px] w-full overflow-hidden bg-ink/5">
         <img
           src={c.image}
-          alt=""
+          alt={`${c.title} certificate preview`}
           loading="lazy"
-          width={768}
-          height={512}
-          className="h-full w-full object-cover opacity-90 blur-[1.5px] scale-110 transition-transform duration-700 group-hover:scale-125"
+          width={1024}
+          height={704}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/20" />
-        <div className="absolute inset-0 grid-bg opacity-10" />
-        <div className="absolute left-4 top-4 flex items-center gap-2">
+        {/* subtle top vignette so the tag stays legible without hiding the cert */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-ink/55 to-transparent" />
+        <div className="absolute left-3 top-3 flex items-center gap-2">
           <span className="rounded-full bg-brand px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white shadow-md">
             {c.tag}
           </span>
         </div>
-        <span className="absolute right-4 top-3 font-display text-3xl font-bold text-white/30">
+        <span className="absolute right-3 top-2 font-display text-2xl font-bold text-white/80 drop-shadow">
           {c.n}
         </span>
-        <div className="absolute bottom-3 left-4 flex items-center gap-2 text-white/90">
-          <FileText className="h-4 w-4" />
-          <span className="text-[11px] font-medium uppercase tracking-widest">Certificate</span>
+        <div className="absolute bottom-2 left-3 flex items-center gap-1.5 rounded-full bg-white/85 px-2 py-1 text-ink backdrop-blur-sm">
+          <FileText className="h-3 w-3" />
+          <span className="text-[10px] font-semibold uppercase tracking-widest">Certificate</span>
         </div>
       </div>
 
