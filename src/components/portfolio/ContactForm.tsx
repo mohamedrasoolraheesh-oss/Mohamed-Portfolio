@@ -52,7 +52,7 @@ export function ContactForm() {
 
           <div className="mt-10 flex gap-3">
             <a
-              href="https://www.linkedin.com/in/mohamed-rasool-raheesh"
+              href="https://www.linkedin.com/in/rebel07/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn profile"
