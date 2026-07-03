@@ -50,12 +50,12 @@ const projects = [
 
 
 const repos = [
-  { name: "AI Interview Simulator", lang: "Python" },
-  { name: "AI Knowledge Assistant", lang: "Python" },
-  { name: "Diabetes Prediction", lang: "Scikit-learn" },
-  { name: "Car Price Prediction", lang: "Regression" },
-  { name: "Movie Recommender", lang: "TF-IDF" },
-  { name: "Stock Price Predictor", lang: "Pandas" },
+  { name: "AI Interview Simulator", lang: "Python", href: "https://github.com/mohamedrasoolraheesh-oss/AI-Interview-stimulator" },
+  { name: "AI Knowledge Assistant", lang: "Python", href: "https://github.com/mohamedrasoolraheesh-oss/AI-Knowledge-Assistant" },
+  { name: "Diabetes Prediction", lang: "Scikit-learn", href: GH },
+  { name: "Car Price Prediction", lang: "Regression", href: GH },
+  { name: "Movie Recommender", lang: "TF-IDF", href: GH },
+  { name: "Stock Price Predictor", lang: "Pandas", href: GH },
 ];
 
 
@@ -123,7 +123,7 @@ export function ProjectsWork() {
             {repos.map((r) => (
               <a
                 key={r.name}
-                href={GH}
+                href={r.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open ${r.name} on GitHub`}
