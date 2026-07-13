@@ -40,6 +40,14 @@ const certs: Cert[] = [
     image: thumbTata,
   },
   {
+    tag: "AWS · ML",
+    n: "02",
+    title: "Machine Learning — Terminology and Process",
+    issuer: "AWS Training & Certification · Jul 2026",
+    url: toAssetUrl(awsPdf),
+    image: thumbAws,
+  },
+  {
     tag: "ML Internship",
     n: "02",
     title: "Artificial Intelligence Internship",
