@@ -47,7 +47,7 @@ const certs: Cert[] = [
   },
   {
     tag: "ML Internship",
-    n: "02",
+    n: "03",
     title: "Machine Learning Internship Completion",
     issuer: "InternPe · Jan 2026",
     url: "https://www.linkedin.com/in/rebel07/",
@@ -56,7 +56,7 @@ const certs: Cert[] = [
 
   {
     tag: "Machine Learning",
-    n: "03",
+    n: "04",
     title: "Google Machine Learning Certificate",
     issuer: "Google",
     url: toAssetUrl(googleML),
@@ -64,7 +64,7 @@ const certs: Cert[] = [
   },
   {
     tag: "Database",
-    n: "04",
+    n: "05",
     title: "SQL (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(sqlInt),
@@ -72,7 +72,7 @@ const certs: Cert[] = [
   },
   {
     tag: "Database",
-    n: "05",
+    n: "06",
     title: "SQL (Basic) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(sqlBasic),
@@ -80,7 +80,7 @@ const certs: Cert[] = [
   },
   {
     tag: "Backend",
-    n: "06",
+    n: "07",
     title: "REST API (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(restApi),
@@ -88,7 +88,7 @@ const certs: Cert[] = [
   },
   {
     tag: "Programming",
-    n: "07",
+    n: "08",
     title: "JavaScript (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(jsInt),
