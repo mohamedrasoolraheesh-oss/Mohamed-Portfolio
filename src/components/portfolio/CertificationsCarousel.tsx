@@ -9,6 +9,7 @@ import sqlBasic from "../../assets/certs/sql-basic.pdf.asset.json";
 import restApi from "../../assets/certs/rest-api.pdf.asset.json";
 import sqlInt from "../../assets/certs/sql-intermediate.pdf.asset.json";
 import tataPdf from "../../assets/certs/tata.pdf.asset.json";
+import awsPdf from "../../assets/certs/aws.pdf.asset.json";
 
 import thumbCodec from "../../assets/certs/thumb-codec-ai.jpg";
 import thumbInternPe from "../../assets/certs/thumb-internpe.jpg";
@@ -18,6 +19,7 @@ import thumbSqlBasic from "../../assets/certs/thumb-sql-basic.jpg";
 import thumbRest from "../../assets/certs/thumb-rest-api.jpg";
 import thumbJs from "../../assets/certs/thumb-js-int.jpg";
 import thumbTata from "../../assets/certs/thumb-tata.jpg";
+import thumbAws from "../../assets/certs/thumb-aws.jpg";
 
 type Cert = {
   tag: string;
