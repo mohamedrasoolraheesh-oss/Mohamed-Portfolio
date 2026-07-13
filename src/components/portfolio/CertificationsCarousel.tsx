@@ -8,6 +8,7 @@ import codecAI from "../../assets/certs/codec-ai.jpeg.asset.json";
 import sqlBasic from "../../assets/certs/sql-basic.pdf.asset.json";
 import restApi from "../../assets/certs/rest-api.pdf.asset.json";
 import sqlInt from "../../assets/certs/sql-intermediate.pdf.asset.json";
+import tataPdf from "../../assets/certs/tata.pdf.asset.json";
 
 import thumbCodec from "../../assets/certs/thumb-codec-ai.jpg";
 import thumbInternPe from "../../assets/certs/thumb-internpe.jpg";
