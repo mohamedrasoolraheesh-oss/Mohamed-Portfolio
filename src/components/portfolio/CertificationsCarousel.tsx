@@ -8,6 +8,7 @@ import codecAI from "../../assets/certs/codec-ai.jpeg.asset.json";
 import sqlBasic from "../../assets/certs/sql-basic.pdf.asset.json";
 import restApi from "../../assets/certs/rest-api.pdf.asset.json";
 import sqlInt from "../../assets/certs/sql-intermediate.pdf.asset.json";
+import tataPdf from "../../assets/certs/tata.pdf.asset.json";
 
 import thumbCodec from "../../assets/certs/thumb-codec-ai.jpg";
 import thumbInternPe from "../../assets/certs/thumb-internpe.jpg";
@@ -16,6 +17,7 @@ import thumbSqlInt from "../../assets/certs/thumb-sql-int.jpg";
 import thumbSqlBasic from "../../assets/certs/thumb-sql-basic.jpg";
 import thumbRest from "../../assets/certs/thumb-rest-api.jpg";
 import thumbJs from "../../assets/certs/thumb-js-int.jpg";
+import thumbTata from "../../assets/certs/thumb-tata.jpg";
 
 type Cert = {
   tag: string;
@@ -28,8 +30,16 @@ type Cert = {
 
 const certs: Cert[] = [
   {
-    tag: "ML Internship",
+    tag: "Job Simulation",
     n: "01",
+    title: "GenAI Powered Data Analytics Job Simulation",
+    issuer: "Tata · Forage · Jul 2026",
+    url: toAssetUrl(tataPdf),
+    image: thumbTata,
+  },
+  {
+    tag: "ML Internship",
+    n: "02",
     title: "Artificial Intelligence Internship",
     issuer: "Codec Technologies · AICTE & ICAC · Feb–Mar 2026",
     url: toAssetUrl(codecAI),
@@ -37,7 +47,7 @@ const certs: Cert[] = [
   },
   {
     tag: "ML Internship",
-    n: "02",
+    n: "03",
     title: "Machine Learning Internship Completion",
     issuer: "InternPe · Jan 2026",
     url: "https://www.linkedin.com/in/rebel07/",
@@ -46,7 +56,7 @@ const certs: Cert[] = [
 
   {
     tag: "Machine Learning",
-    n: "03",
+    n: "04",
     title: "Google Machine Learning Certificate",
     issuer: "Google",
     url: toAssetUrl(googleML),
@@ -54,7 +64,7 @@ const certs: Cert[] = [
   },
   {
     tag: "Database",
-    n: "04",
+    n: "05",
     title: "SQL (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(sqlInt),
@@ -62,7 +72,7 @@ const certs: Cert[] = [
   },
   {
     tag: "Database",
-    n: "05",
+    n: "06",
     title: "SQL (Basic) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(sqlBasic),
@@ -70,7 +80,7 @@ const certs: Cert[] = [
   },
   {
     tag: "Backend",
-    n: "06",
+    n: "07",
     title: "REST API (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(restApi),
@@ -78,7 +88,7 @@ const certs: Cert[] = [
   },
   {
     tag: "Programming",
-    n: "07",
+    n: "08",
     title: "JavaScript (Intermediate) Certificate",
     issuer: "HackerRank",
     url: toAssetUrl(jsInt),
