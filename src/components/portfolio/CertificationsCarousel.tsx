@@ -30,8 +30,16 @@ type Cert = {
 
 const certs: Cert[] = [
   {
-    tag: "ML Internship",
+    tag: "Job Simulation",
     n: "01",
+    title: "GenAI Powered Data Analytics Job Simulation",
+    issuer: "Tata · Forage · Jul 2026",
+    url: toAssetUrl(tataPdf),
+    image: thumbTata,
+  },
+  {
+    tag: "ML Internship",
+    n: "02",
     title: "Artificial Intelligence Internship",
     issuer: "Codec Technologies · AICTE & ICAC · Feb–Mar 2026",
     url: toAssetUrl(codecAI),
