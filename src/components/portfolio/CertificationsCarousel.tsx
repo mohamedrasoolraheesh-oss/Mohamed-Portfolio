@@ -17,6 +17,7 @@ import thumbSqlInt from "../../assets/certs/thumb-sql-int.jpg";
 import thumbSqlBasic from "../../assets/certs/thumb-sql-basic.jpg";
 import thumbRest from "../../assets/certs/thumb-rest-api.jpg";
 import thumbJs from "../../assets/certs/thumb-js-int.jpg";
+import thumbTata from "../../assets/certs/thumb-tata.jpg";
 
 type Cert = {
   tag: string;
