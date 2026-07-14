@@ -102,6 +102,19 @@ export function Nav() {
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href={RESUME_URL}
+                download="Mohamed_Rasool_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="mt-1 inline-flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-semibold text-brand hover:bg-ink/5"
+              >
+                <Download className="h-4 w-4" />
+                Download Resume
+              </a>
+            </li>
           </ul>
         </div>
       )}
