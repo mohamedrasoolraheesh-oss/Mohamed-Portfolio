@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Download } from "lucide-react";
+import resumeAsset from "@/assets/resume_Rasool.pdf.asset.json";
+import { toAssetUrl } from "@/lib/asset-url";
+
+const RESUME_URL = toAssetUrl(resumeAsset);
+
 
 const links = [
   { href: "#home", label: "Home" },
@@ -52,6 +58,16 @@ export function Nav() {
         </ul>
 
         <div className="flex items-center gap-2">
+          <a
+            href={RESUME_URL}
+            download="Mohamed_Rasool_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-2 rounded-full border border-ink/15 bg-white px-4 py-2.5 text-sm font-semibold text-ink shadow-[0_6px_20px_-10px_rgba(0,0,0,0.35)] transition-all hover:-translate-y-0.5 hover:border-brand hover:text-brand sm:inline-flex"
+          >
+            <Download className="h-4 w-4" />
+            Resume
+          </a>
           <a
             href="#contact"
             className="hidden rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white shadow-[0_6px_24px_-8px_rgba(0,0,0,0.4)] transition-all hover:bg-brand hover:shadow-[0_10px_30px_-8px_rgba(255,46,46,0.55)] sm:inline-flex"
