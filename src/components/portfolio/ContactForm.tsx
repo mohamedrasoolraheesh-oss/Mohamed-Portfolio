@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { Mail, Linkedin, Github, Send, Phone, MapPin } from "lucide-react";
 
 export function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   return (
     <section id="contact" className="relative overflow-hidden bg-ink py-24 text-white md:py-32">
@@ -81,28 +81,40 @@ export function ContactForm() {
         </div>
 
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
             const form = e.currentTarget;
             const data = new FormData(form);
-            const name = String(data.get("name") || "");
-            const email = String(data.get("email") || "");
-            const subject = String(data.get("subject") || "Portfolio enquiry");
-            const message = String(data.get("message") || "");
-            const body =
-              `Hi Mohamed,\n\n` +
-              `${message}\n\n` +
-              `—\nFrom: ${name}\nEmail: ${email}`;
-            const mailto = `mailto:mohamedrasoolraheesh@gmail.com?subject=${encodeURIComponent(
-              subject
-            )}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailto;
-            setSent(true);
-            toast.success("Message prepared!", {
-              description: "Your email client should open shortly. Just hit send to reach me.",
-            });
-            setTimeout(() => setSent(false), 3000);
-            form.reset();
+            const payload = {
+              name: String(data.get("name") || ""),
+              email: String(data.get("email") || ""),
+              subject: String(data.get("subject") || "Portfolio enquiry"),
+              message: String(data.get("message") || ""),
+            };
+            setStatus("loading");
+            try {
+              const res = await fetch("https://formspree.io/f/xabcdeyz", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                body: JSON.stringify(payload),
+              });
+              if (!res.ok) throw new Error("Request failed");
+              setStatus("success");
+              toast.success("Message sent!", {
+                description: "Thanks for reaching out — I'll reply within 24 hours.",
+              });
+              form.reset();
+            } catch {
+              setStatus("error");
+              toast.error("Something went wrong", {
+                description: "Please try again or email me directly.",
+              });
+            } finally {
+              setTimeout(() => setStatus("idle"), 4000);
+            }
           }}
           className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur md:p-8"
         >
