@@ -93,7 +93,7 @@ export function ContactForm() {
             };
             setStatus("loading");
             try {
-              const res = await fetch("https://formspree.io/f/xabcdeyz", {
+              const res = await fetch("https://formspree.io/f/mwvgpzwr", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -163,9 +163,16 @@ export function ContactForm() {
           </label>
           <button
             type="submit"
-            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-10px_rgba(255,46,46,0.6)] transition hover:bg-brand-deep sm:w-auto"
+            disabled={status === "loading"}
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-10px_rgba(255,46,46,0.6)] transition hover:bg-brand-deep disabled:opacity-60 sm:w-auto"
           >
-            {sent ? "Opening email ✓" : "Send via Email"}
+            {status === "loading"
+              ? "Sending…"
+              : status === "success"
+                ? "Message sent ✓"
+                : status === "error"
+                  ? "Try again"
+                  : "Send Message"}
             <Send className="h-4 w-4" />
           </button>
         </form>
