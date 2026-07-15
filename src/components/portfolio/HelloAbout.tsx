@@ -26,10 +26,8 @@ export function HelloAbout() {
               className="aspect-[4/5] w-full rounded-[0.6rem] object-cover"
             />
           </div>
-          {/* sparkle */}
-          <span className="absolute -bottom-6 -left-4 text-3xl text-ink/40">✦</span>
-          <span className="absolute -top-2 -right-6 text-2xl text-ink/40">✦</span>
         </motion.div>
+
 
         {/* text */}
         <div>
