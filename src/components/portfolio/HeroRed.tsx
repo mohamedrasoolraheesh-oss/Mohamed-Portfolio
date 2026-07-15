@@ -16,7 +16,7 @@ export function HeroRed() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-[#ff2e2e] pt-28 pb-20 md:pt-36 md:pb-28"
+      className="relative overflow-hidden bg-[#ff2e2e] pt-24 pb-16 md:pt-36 md:pb-28"
     >
       {/* subtle diagonal light streaks */}
       <div className="pointer-events-none absolute inset-0 opacity-30">
@@ -24,9 +24,7 @@ export function HeroRed() {
         <div className="absolute right-0 bottom-0 h-[80%] w-[40%] -rotate-12 bg-gradient-to-l from-white/10 to-transparent blur-3xl" />
       </div>
 
-      {/* sparkle accents */}
-      <Sparkles className="absolute right-16 top-32 h-6 w-6 text-white/70" />
-      <Sparkles className="absolute left-10 bottom-24 h-5 w-5 text-white/60" />
+
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-[1.15fr_1fr] md:gap-16 md:px-10">
         {/* Left content */}
