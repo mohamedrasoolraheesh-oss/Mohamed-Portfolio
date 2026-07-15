@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Volume2, VolumeX, Sparkles, Code2, BarChart3, BrainCircuit } from "lucide-react";
+import { ArrowUpRight, Volume2, VolumeX, Code2, BarChart3, BrainCircuit } from "lucide-react";
 import { useState } from "react";
 import heroVideoAsset from "../../assets/hero.mp4.asset.json";
 import { toAssetUrl } from "../../lib/asset-url";
@@ -16,7 +16,7 @@ export function HeroRed() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-[#ff2e2e] pt-28 pb-20 md:pt-36 md:pb-28"
+      className="relative overflow-hidden bg-[#ff2e2e] pt-24 pb-16 md:pt-36 md:pb-28"
     >
       {/* subtle diagonal light streaks */}
       <div className="pointer-events-none absolute inset-0 opacity-30">
@@ -24,9 +24,7 @@ export function HeroRed() {
         <div className="absolute right-0 bottom-0 h-[80%] w-[40%] -rotate-12 bg-gradient-to-l from-white/10 to-transparent blur-3xl" />
       </div>
 
-      {/* sparkle accents */}
-      <Sparkles className="absolute right-16 top-32 h-6 w-6 text-white/70" />
-      <Sparkles className="absolute left-10 bottom-24 h-5 w-5 text-white/60" />
+
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-[1.15fr_1fr] md:gap-16 md:px-10">
         {/* Left content */}
@@ -90,7 +88,7 @@ export function HeroRed() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-md"
+          className="relative mx-auto w-full max-w-[18rem] px-2 sm:max-w-sm md:max-w-md md:px-0"
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.45)]">
             <video
@@ -108,25 +106,25 @@ export function HeroRed() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-6 top-10 flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
+            className="absolute left-0 top-6 flex items-center gap-1.5 rounded-2xl bg-white px-3 py-1.5 text-xs font-semibold text-ink shadow-xl sm:-left-6 sm:top-10 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm"
           >
-            <Code2 className="h-4 w-4 text-brand" />
+            <Code2 className="h-3.5 w-3.5 text-brand sm:h-4 sm:w-4" />
             Python
           </motion.div>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -right-4 top-1/3 flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
+            className="absolute right-0 top-1/3 flex items-center gap-1.5 rounded-2xl bg-white px-3 py-1.5 text-xs font-semibold text-ink shadow-xl sm:-right-4 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm"
           >
-            <BarChart3 className="h-4 w-4 text-brand" />
+            <BarChart3 className="h-3.5 w-3.5 text-brand sm:h-4 sm:w-4" />
             Scikit-learn
           </motion.div>
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-4 bottom-12 flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-ink shadow-xl"
+            className="absolute left-0 bottom-8 flex items-center gap-1.5 rounded-2xl bg-white px-3 py-1.5 text-xs font-semibold text-ink shadow-xl sm:-left-4 sm:bottom-12 sm:gap-2 sm:px-4 sm:py-2 sm:text-sm"
           >
-            <BrainCircuit className="h-4 w-4 text-brand" />
+            <BrainCircuit className="h-3.5 w-3.5 text-brand sm:h-4 sm:w-4" />
             NLP &amp; RAG
           </motion.div>
         </motion.div>
@@ -137,12 +135,13 @@ export function HeroRed() {
         type="button"
         onClick={() => setMuted((m) => !m)}
         aria-label={muted ? "Unmute video" : "Mute video"}
-        className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 cursor-pointer group z-10"
+        className="absolute right-2 md:right-6 bottom-4 md:bottom-auto md:top-1/2 md:-translate-y-1/2 flex flex-col items-center gap-1 md:gap-2 cursor-pointer group z-10"
       >
-        <span className="grid h-12 w-12 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition group-hover:bg-white/25">
-          {muted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+        <span className="grid h-10 w-10 md:h-12 md:w-12 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition group-hover:bg-white/25">
+          {muted ? <VolumeX className="h-4 w-4 md:h-5 md:w-5" /> : <Volume2 className="h-4 w-4 md:h-5 md:w-5" />}
         </span>
-        <span className="text-[10px] font-semibold tracking-[0.25em] text-white/80 transition group-hover:text-white">
+        <span className="text-[9px] md:text-[10px] font-semibold tracking-[0.25em] text-white/80 transition group-hover:text-white">
+
           {muted ? "UNMUTE" : "MUTE"}
         </span>
       </button>

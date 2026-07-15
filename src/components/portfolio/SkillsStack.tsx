@@ -41,7 +41,7 @@ export function SkillsStack() {
               key={g.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
               className="rounded-[1.5rem] border border-ink/10 bg-white p-7 shadow-[0_15px_40px_-25px_rgba(0,0,0,0.2)]"
             >

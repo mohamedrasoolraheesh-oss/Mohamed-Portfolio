@@ -85,7 +85,7 @@ export function ProjectsWork() {
               aria-label={`Open ${p.title} on GitHub`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
               className="group relative flex flex-col rounded-[1.5rem] border border-ink/10 bg-white p-6 shadow-[0_15px_40px_-25px_rgba(0,0,0,0.18)] transition-all hover:-translate-y-1 hover:border-brand/30 hover:shadow-[0_25px_50px_-25px_rgba(255,46,46,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
             >
