@@ -55,7 +55,7 @@ export function Expertise() {
               key={c.n}
               initial={{ opacity: 0, y: 40, rotate: 0 }}
               whileInView={{ opacity: 1, y: 0, rotate: c.rotate }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.3 }}
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ rotate: 0, y: -6 }}
               className={`relative rounded-[1.5rem] border border-ink/10 ${c.bg} p-7 shadow-[0_25px_60px_-30px_rgba(0,0,0,0.25)]`}

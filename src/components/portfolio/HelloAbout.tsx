@@ -10,7 +10,7 @@ export function HelloAbout() {
         <motion.div
           initial={{ opacity: 0, rotate: -8, y: 30 }}
           whileInView={{ opacity: 1, rotate: -4, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: false, amount: 0.4 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="relative mx-auto w-full max-w-xs"
         >
@@ -34,7 +34,7 @@ export function HelloAbout() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.7 }}
             className="font-display text-[clamp(2.5rem,5vw,4.5rem)] font-bold text-ink"
           >
@@ -43,7 +43,7 @@ export function HelloAbout() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="mt-5 max-w-xl text-base leading-relaxed text-white/95 md:text-lg"
           >
