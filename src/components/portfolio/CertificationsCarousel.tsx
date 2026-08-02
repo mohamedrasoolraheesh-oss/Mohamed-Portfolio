@@ -299,7 +299,7 @@ export function CertificationsCarousel() {
               Professional <span className="underline-brand">Credentials</span>
             </h2>
             <p className="mt-5 text-base text-ink/60 md:text-lg">
-              {certs.length} verified certificates across ML, databases, backend & programming.
+              {allCerts.length} verified certificates across ML, databases, backend & programming.
             </p>
           </div>
           <div className="hidden shrink-0 items-center gap-3 md:flex">
@@ -367,7 +367,7 @@ export function CertificationsCarousel() {
       </div>
 
       <div className="mt-6 text-center text-sm italic text-ink/50">
-        {paused ? "Paused · resuming shortly…" : "Hover to open and verify"} · {certs.length} credentials and counting.
+        {paused ? "Paused · resuming shortly…" : "Hover to open and verify"} · {allCerts.length} credentials and counting.
       </div>
     </section>
   );
