@@ -75,11 +75,6 @@ Deno.serve(async (req) => {
       while (frontier.length) {
         const next: string[] = [];
         for (const id of frontier) {
-          for (const f of folders) {
-            if (!ids.has(f.id) && (f as unknown as { parents?: string[] })) {
-              // parents not fetched for folders; handled below via query
-            }
-          }
           const subs = await listAll(
             `'${id}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`,
           );
