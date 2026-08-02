@@ -33,13 +33,16 @@ Deno.serve(async (req) => {
     let folderId = FOLDER_ID;
 
     if (!folderId) {
-      const safeName = FOLDER_NAME.replace(/'/g, "\\'");
+      // Drive API `name=` is case-sensitive, so fetch all folders and match in code
       const folders = await driveGet("/files", {
-        q: `mimeType='application/vnd.google-apps.folder' and name='${safeName}' and trashed=false`,
+        q: `mimeType='application/vnd.google-apps.folder' and trashed=false`,
         fields: "files(id,name)",
-        pageSize: "5",
+        pageSize: "100",
       });
-      folderId = folders.files?.[0]?.id ?? "";
+      const match = (folders.files ?? []).find(
+        (f: Record<string, string>) => f.name?.toLowerCase() === FOLDER_NAME.toLowerCase(),
+      );
+      folderId = match?.id ?? "";
     }
 
     if (!folderId) {
