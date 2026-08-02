@@ -163,9 +163,52 @@ function Card({ c }: { c: Cert }) {
   );
 }
 
+type DriveItem = {
+  id: string;
+  title: string;
+  url: string;
+  image: string;
+  modifiedTime?: string;
+};
+
 export function CertificationsCarousel() {
+  const [driveCerts, setDriveCerts] = useState<Cert[]>([]);
+
+  // Pull fresh certificates from Google Drive on every page load
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("drive-certificates");
+        if (error || cancelled) return;
+        const items: DriveItem[] = data?.items ?? [];
+        const mapped: Cert[] = items.map((it, i) => ({
+          tag: "Drive",
+          n: String(certs.length + i + 1).padStart(2, "0"),
+          title: it.title || "Certificate",
+          issuer: it.modifiedTime
+            ? new Date(it.modifiedTime).toLocaleDateString(undefined, {
+                month: "short",
+                year: "numeric",
+              })
+            : "Google Drive",
+          url: it.url,
+          image: it.image,
+        }));
+        setDriveCerts(mapped);
+      } catch {
+        /* keep static certificates if Drive is unavailable */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const allCerts = [...certs, ...driveCerts];
   // duplicate the list for seamless infinite loop
-  const loop = [...certs, ...certs];
+  const loop = [...allCerts, ...allCerts];
+
 
   const controls = useAnimationControls();
   const trackRef = useRef<HTMLDivElement | null>(null);
