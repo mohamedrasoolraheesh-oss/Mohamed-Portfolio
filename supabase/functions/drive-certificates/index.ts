@@ -91,9 +91,12 @@ Deno.serve(async (req) => {
         files.push(...(await listAll(`'${id}' in parents and trashed=false and ${MEDIA_Q}`)));
       }
     } else {
-      // No "Certificates" folder — fall back to every PDF/image in the Drive
+      // No "Certificates" folder — fall back to certificate-looking files anywhere in the Drive
       scope = "all-drive";
-      files = await listAll(`trashed=false and ${MEDIA_Q}`);
+      const all = await listAll(`trashed=false and ${MEDIA_Q}`);
+      files = all.filter((f) =>
+        /cert|credential|badge|internship|completion|course|training/i.test(f.name ?? "")
+      );
     }
 
     // de-duplicate by id
