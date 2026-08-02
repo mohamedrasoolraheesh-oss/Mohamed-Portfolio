@@ -1,7 +1,9 @@
 import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FileText, ExternalLink, ArrowLeft, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { toAssetUrl } from "../../lib/asset-url";
+
 import googleML from "../../assets/certs/google-ml.pdf.asset.json";
 import jsInt from "../../assets/certs/js-intermediate.pdf.asset.json";
 import codecAI from "../../assets/certs/codec-ai.jpeg.asset.json";
@@ -161,9 +163,52 @@ function Card({ c }: { c: Cert }) {
   );
 }
 
+type DriveItem = {
+  id: string;
+  title: string;
+  url: string;
+  image: string;
+  modifiedTime?: string;
+};
+
 export function CertificationsCarousel() {
+  const [driveCerts, setDriveCerts] = useState<Cert[]>([]);
+
+  // Pull fresh certificates from Google Drive on every page load
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("drive-certificates");
+        if (error || cancelled) return;
+        const items: DriveItem[] = data?.items ?? [];
+        const mapped: Cert[] = items.map((it, i) => ({
+          tag: "Drive",
+          n: String(certs.length + i + 1).padStart(2, "0"),
+          title: it.title || "Certificate",
+          issuer: it.modifiedTime
+            ? new Date(it.modifiedTime).toLocaleDateString(undefined, {
+                month: "short",
+                year: "numeric",
+              })
+            : "Google Drive",
+          url: it.url,
+          image: it.image,
+        }));
+        setDriveCerts(mapped);
+      } catch {
+        /* keep static certificates if Drive is unavailable */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const allCerts = [...certs, ...driveCerts];
   // duplicate the list for seamless infinite loop
-  const loop = [...certs, ...certs];
+  const loop = [...allCerts, ...allCerts];
+
 
   const controls = useAnimationControls();
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -254,7 +299,7 @@ export function CertificationsCarousel() {
               Professional <span className="underline-brand">Credentials</span>
             </h2>
             <p className="mt-5 text-base text-ink/60 md:text-lg">
-              {certs.length} verified certificates across ML, databases, backend & programming.
+              {allCerts.length} verified certificates across ML, databases, backend & programming.
             </p>
           </div>
           <div className="hidden shrink-0 items-center gap-3 md:flex">
@@ -322,7 +367,7 @@ export function CertificationsCarousel() {
       </div>
 
       <div className="mt-6 text-center text-sm italic text-ink/50">
-        {paused ? "Paused · resuming shortly…" : "Hover to open and verify"} · {certs.length} credentials and counting.
+        {paused ? "Paused · resuming shortly…" : "Hover to open and verify"} · {allCerts.length} credentials and counting.
       </div>
     </section>
   );
