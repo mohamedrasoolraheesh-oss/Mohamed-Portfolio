@@ -26,62 +26,107 @@ async function driveGet(path: string, params: Record<string, string>) {
   return await res.json();
 }
 
+const FILE_FIELDS = "files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink),nextPageToken";
+const MEDIA_Q = "(mimeType contains 'image/' or mimeType='application/pdf')";
+
+async function listAll(q: string) {
+  const out: Record<string, string>[] = [];
+  let pageToken = "";
+  do {
+    const params: Record<string, string> = {
+      q,
+      fields: FILE_FIELDS,
+      orderBy: "modifiedTime desc",
+      pageSize: "1000",
+      includeItemsFromAllDrives: "true",
+      supportsAllDrives: "true",
+      corpora: "allDrives",
+    };
+    if (pageToken) params.pageToken = pageToken;
+    const page = await driveGet("/files", params);
+    out.push(...(page.files ?? []));
+    pageToken = page.nextPageToken ?? "";
+  } while (pageToken);
+  return out;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
-    let folderId = FOLDER_ID;
+    // Collect all folders once so we can resolve the target folder and its subfolders
+    const folders = await listAll(
+      "mimeType='application/vnd.google-apps.folder' and trashed=false",
+    );
 
-    if (!folderId) {
-      // Drive API `name=` is case-sensitive, so fetch all folders and match in code
-      const folders = await driveGet("/files", {
-        q: `mimeType='application/vnd.google-apps.folder' and trashed=false`,
-        fields: "files(id,name)",
-        pageSize: "100",
-      });
-      const allFolders = folders.files ?? [];
-      const match = allFolders.find(
-        (f: Record<string, string>) => f.name?.toLowerCase() === FOLDER_NAME.toLowerCase(),
-      );
-      folderId = match?.id ?? "";
-
-      if (!folderId) {
-        return new Response(
-          JSON.stringify({
-            items: [],
-            folderFound: false,
-            folderName: FOLDER_NAME,
-            allFolderNames: allFolders.map((f: Record<string, string>) => f.name),
-            message: `No Google Drive folder named "${FOLDER_NAME}" was found.`,
-          }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" } },
-        );
-      }
+    let rootId = FOLDER_ID;
+    if (!rootId) {
+      rootId =
+        folders.find((f) => (f.name ?? "").toLowerCase() === FOLDER_NAME.toLowerCase())?.id ?? "";
     }
 
-    const listed = await driveGet("/files", {
-      q: `'${folderId}' in parents and trashed=false and (mimeType contains 'image/' or mimeType='application/pdf')`,
-      fields: "files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink)",
-      orderBy: "modifiedTime desc",
-      pageSize: "100",
-    });
+    let files: Record<string, string>[] = [];
+    let scope = "folder";
 
-    const items = (listed.files ?? []).map((f: Record<string, string>) => ({
-      id: f.id,
-      title: (f.name ?? "").replace(/\.(pdf|jpe?g|png|webp)$/i, "").replace(/[_-]+/g, " ").trim(),
-      mimeType: f.mimeType,
-      modifiedTime: f.modifiedTime,
-      url: f.webViewLink ?? `https://drive.google.com/file/d/${f.id}/view`,
-      image: `https://drive.google.com/thumbnail?id=${f.id}&sz=w1000`,
-    }));
+    if (rootId) {
+      // walk the folder tree (folder + all nested subfolders)
+      const ids = new Set([rootId]);
+      let frontier = [rootId];
+      while (frontier.length) {
+        const next: string[] = [];
+        for (const id of frontier) {
+          for (const f of folders) {
+            if (!ids.has(f.id) && (f as unknown as { parents?: string[] })) {
+              // parents not fetched for folders; handled below via query
+            }
+          }
+          const subs = await listAll(
+            `'${id}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`,
+          );
+          for (const s of subs) {
+            if (!ids.has(s.id)) {
+              ids.add(s.id);
+              next.push(s.id);
+            }
+          }
+        }
+        frontier = next;
+      }
+      for (const id of ids) {
+        files.push(...(await listAll(`'${id}' in parents and trashed=false and ${MEDIA_Q}`)));
+      }
+    } else {
+      // No "Certificates" folder — fall back to every PDF/image in the Drive
+      scope = "all-drive";
+      files = await listAll(`trashed=false and ${MEDIA_Q}`);
+    }
 
-    return new Response(JSON.stringify({ items, folderFound: true, folderId }), {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
+    // de-duplicate by id
+    const seen = new Set<string>();
+    const items = files
+      .filter((f) => (seen.has(f.id) ? false : (seen.add(f.id), true)))
+      .map((f) => ({
+        id: f.id,
+        title: (f.name ?? "").replace(/\.(pdf|jpe?g|png|webp|gif)$/i, "").replace(/[_-]+/g, " ")
+          .trim(),
+        mimeType: f.mimeType,
+        modifiedTime: f.modifiedTime,
+        url: f.webViewLink ?? `https://drive.google.com/file/d/${f.id}/view`,
+        image: f.thumbnailLink
+          ? f.thumbnailLink.replace(/=s\d+$/, "=s1000")
+          : `https://drive.google.com/thumbnail?id=${f.id}&sz=w1000`,
+      }));
+
+    return new Response(
+      JSON.stringify({ items, folderFound: Boolean(rootId), folderId: rootId, scope, count: items.length }),
+      {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
       },
-    });
+    );
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("drive-certificates failed:", message);
