@@ -39,22 +39,24 @@ Deno.serve(async (req) => {
         fields: "files(id,name)",
         pageSize: "100",
       });
-      const match = (folders.files ?? []).find(
+      const allFolders = folders.files ?? [];
+      const match = allFolders.find(
         (f: Record<string, string>) => f.name?.toLowerCase() === FOLDER_NAME.toLowerCase(),
       );
       folderId = match?.id ?? "";
-    }
 
-    if (!folderId) {
-      return new Response(
-        JSON.stringify({
-          items: [],
-          folderFound: false,
-          folderName: FOLDER_NAME,
-          message: `No Google Drive folder named "${FOLDER_NAME}" was found.`,
-        }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" } },
-      );
+      if (!folderId) {
+        return new Response(
+          JSON.stringify({
+            items: [],
+            folderFound: false,
+            folderName: FOLDER_NAME,
+            allFolderNames: allFolders.map((f: Record<string, string>) => f.name),
+            message: `No Google Drive folder named "${FOLDER_NAME}" was found.`,
+          }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
     }
 
     const listed = await driveGet("/files", {
