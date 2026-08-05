@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import portraitAsset from "../../assets/rasool-portrait.jpeg.asset.json";
 import { toAssetUrl } from "../../lib/asset-url";
+import { Code2, Database, BrainCircuit, FileSearch, Boxes } from "lucide-react";
+
 
 export function HelloAbout() {
   return (
@@ -56,12 +58,22 @@ export function HelloAbout() {
             internship roles to deliver impactful, data-driven products.
           </motion.p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-6 text-3xl">
-            <span title="Python">🐍</span>
-            <span title="Pandas">🐼</span>
-            <span title="Scikit-learn">📊</span>
-            <span title="NLP">🧠</span>
-            <span title="RAG">🔎</span>
+          <div className="mt-8 flex flex-wrap items-center gap-5 text-ink/90">
+            {[
+              { Icon: Code2, label: "Python" },
+              { Icon: Database, label: "Pandas" },
+              { Icon: BrainCircuit, label: "Scikit-learn" },
+              { Icon: FileSearch, label: "NLP" },
+              { Icon: Boxes, label: "RAG" },
+            ].map(({ Icon, label }) => (
+              <span
+                key={label}
+                title={label}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-ink/20 bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+              >
+                <Icon className="h-5 w-5" strokeWidth={1.8} />
+              </span>
+            ))}
           </div>
 
         </div>
