@@ -2,26 +2,6 @@ import { motion, useAnimationControls } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FileText, ExternalLink, ArrowLeft, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { toAssetUrl } from "../../lib/asset-url";
-
-import googleML from "../../assets/certs/google-ml.pdf.asset.json";
-import jsInt from "../../assets/certs/js-intermediate.pdf.asset.json";
-import codecAI from "../../assets/certs/codec-ai.jpeg.asset.json";
-import sqlBasic from "../../assets/certs/sql-basic.pdf.asset.json";
-import restApi from "../../assets/certs/rest-api.pdf.asset.json";
-import sqlInt from "../../assets/certs/sql-intermediate.pdf.asset.json";
-import tataPdf from "../../assets/certs/tata.pdf.asset.json";
-import awsPdf from "../../assets/certs/aws.pdf.asset.json";
-
-import thumbCodec from "../../assets/certs/thumb-codec-ai.jpg";
-import thumbInternPe from "../../assets/certs/thumb-internpe.jpg";
-import thumbGoogle from "../../assets/certs/thumb-google-ml.jpg";
-import thumbSqlInt from "../../assets/certs/thumb-sql-int.jpg";
-import thumbSqlBasic from "../../assets/certs/thumb-sql-basic.jpg";
-import thumbRest from "../../assets/certs/thumb-rest-api.jpg";
-import thumbJs from "../../assets/certs/thumb-js-int.jpg";
-import thumbTata from "../../assets/certs/thumb-tata.jpg";
-import thumbAws from "../../assets/certs/thumb-aws.jpg";
 
 type Cert = {
   tag: string;
@@ -32,82 +12,6 @@ type Cert = {
   image: string;
 };
 
-const certs: Cert[] = [
-  {
-    tag: "Job Simulation",
-    n: "01",
-    title: "GenAI Powered Data Analytics Job Simulation",
-    issuer: "Tata · Forage · Jul 2026",
-    url: toAssetUrl(tataPdf),
-    image: thumbTata,
-  },
-  {
-    tag: "AWS · ML",
-    n: "02",
-    title: "Machine Learning — Terminology and Process",
-    issuer: "AWS Training & Certification · Jul 2026",
-    url: toAssetUrl(awsPdf),
-    image: thumbAws,
-  },
-  {
-    tag: "ML Internship",
-    n: "03",
-    title: "Artificial Intelligence Internship",
-    issuer: "Codec Technologies · AICTE & ICAC · Feb–Mar 2026",
-    url: toAssetUrl(codecAI),
-    image: thumbCodec,
-  },
-  {
-    tag: "ML Internship",
-    n: "04",
-    title: "Machine Learning Internship Completion",
-    issuer: "InternPe · Jan 2026",
-    url: "https://www.linkedin.com/in/rebel07/",
-    image: thumbInternPe,
-  },
-
-  {
-    tag: "Machine Learning",
-    n: "05",
-    title: "Google Machine Learning Certificate",
-    issuer: "Google",
-    url: toAssetUrl(googleML),
-    image: thumbGoogle,
-  },
-  {
-    tag: "Database",
-    n: "06",
-    title: "SQL (Intermediate) Certificate",
-    issuer: "HackerRank",
-    url: toAssetUrl(sqlInt),
-    image: thumbSqlInt,
-  },
-  {
-    tag: "Database",
-    n: "07",
-    title: "SQL (Basic) Certificate",
-    issuer: "HackerRank",
-    url: toAssetUrl(sqlBasic),
-    image: thumbSqlBasic,
-  },
-  {
-    tag: "Backend",
-    n: "08",
-    title: "REST API (Intermediate) Certificate",
-    issuer: "HackerRank",
-    url: toAssetUrl(restApi),
-    image: thumbRest,
-  },
-  {
-    tag: "Programming",
-    n: "09",
-    title: "JavaScript (Intermediate) Certificate",
-    issuer: "HackerRank",
-    url: toAssetUrl(jsInt),
-    image: thumbJs,
-  },
-];
-
 function Card({ c }: { c: Cert }) {
   return (
     <a
@@ -116,17 +20,14 @@ function Card({ c }: { c: Cert }) {
       rel="noopener noreferrer"
       className="group relative flex h-[360px] w-[300px] shrink-0 flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-[0_20px_50px_-30px_rgba(0,0,0,0.3)] transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_25px_50px_-25px_rgba(255,46,46,0.35)]"
     >
-      {/* Image header */}
       <div className="relative h-[180px] w-full overflow-hidden bg-ink/5">
         <img
           src={c.image}
           alt={`${c.title} certificate preview`}
           loading="lazy"
-          width={1024}
-          height={704}
+          referrerPolicy="no-referrer"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        {/* subtle top vignette so the tag stays legible without hiding the cert */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-ink/55 to-transparent" />
         <div className="absolute left-3 top-3 flex items-center gap-2">
           <span className="rounded-full bg-brand px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white shadow-md">
@@ -142,7 +43,6 @@ function Card({ c }: { c: Cert }) {
         </div>
       </div>
 
-      {/* Body */}
       <div className="flex flex-1 flex-col justify-between p-5">
         <div>
           <h3 className="font-display text-[15px] font-bold leading-snug text-ink line-clamp-2">
@@ -171,33 +71,43 @@ type DriveItem = {
   modifiedTime?: string;
 };
 
-export function CertificationsCarousel() {
-  const [driveCerts, setDriveCerts] = useState<Cert[]>([]);
+const DURATION = 40; // seconds for a full -50% loop
+const CARD_STEP = 320; // card width (300) + gap (20)
 
-  // Pull fresh certificates from Google Drive on every page load
+export function CertificationsCarousel() {
+  const [certs, setCerts] = useState<Cert[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
         const { data, error } = await supabase.functions.invoke("drive-certificates");
-        if (error || cancelled) return;
+        if (cancelled) return;
+        if (error) {
+          setLoading(false);
+          return;
+        }
         const items: DriveItem[] = data?.items ?? [];
-        const mapped: Cert[] = items.map((it, i) => ({
-          tag: "Drive",
-          n: String(certs.length + i + 1).padStart(2, "0"),
-          title: it.title || "Certificate",
-          issuer: it.modifiedTime
-            ? new Date(it.modifiedTime).toLocaleDateString(undefined, {
-                month: "short",
-                year: "numeric",
-              })
-            : "Google Drive",
-          url: it.url,
-          image: it.image,
-        }));
-        setDriveCerts(mapped);
+        setCerts(
+          items.map((it, i) => ({
+            tag: "Credential",
+            n: String(i + 1).padStart(2, "0"),
+            title: it.title || "Certificate",
+            issuer: it.modifiedTime
+              ? new Date(it.modifiedTime).toLocaleDateString(undefined, {
+                  month: "short",
+                  year: "numeric",
+                })
+              : "Google Drive",
+            url: it.url,
+            image: it.image,
+          })),
+        );
       } catch {
-        /* keep static certificates if Drive is unavailable */
+        /* ignore */
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     })();
     return () => {
@@ -205,40 +115,57 @@ export function CertificationsCarousel() {
     };
   }, []);
 
-  const allCerts = [...certs, ...driveCerts];
-  // duplicate the list for seamless infinite loop
-  const loop = [...allCerts, ...allCerts];
-
+  const loop = [...certs, ...certs];
 
   const controls = useAnimationControls();
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [paused, setPaused] = useState(false);
   const pauseTimer = useRef<number | null>(null);
-  const DURATION = 40; // seconds for full -50% loop
-  const CARD_STEP = 320; // card width (300) + gap (20)
 
-  const startLoop = (fromPercent: number) => {
-    const remaining = ((fromPercent + 50) / 50) * DURATION; // time to reach -50%
-    controls.start({
-      x: ["0%", "-50%"],
-      transition: { duration: DURATION, ease: "linear", repeat: Infinity },
-      // initial offset via sequence:
-    });
-    // simpler: just restart the full loop from current position
-    controls.set({ x: `${fromPercent}%` });
-    controls.start({
-      x: "-50%",
-      transition: { duration: Math.max(0.1, remaining), ease: "linear" },
-    }).then(() => {
-      controls.set({ x: "0%" });
-      controls.start({
-        x: "-50%",
-        transition: { duration: DURATION, ease: "linear", repeat: Infinity },
-      });
-    });
+  const currentPx = () => {
+    const el = trackRef.current;
+    if (!el) return 0;
+    return new DOMMatrixReadOnly(window.getComputedStyle(el).transform).m41;
   };
 
+  // Resume the marquee from wherever the track currently sits
+  const resume = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    const width = el.getBoundingClientRect().width || 1;
+    const half = width / 2;
+    const px = currentPx();
+    const remaining = Math.max(0.1, ((half + px) / half) * DURATION);
+    controls.set({ x: px });
+    controls
+      .start({ x: -half, transition: { duration: remaining, ease: "linear" } })
+      .then(() => {
+        controls.set({ x: 0 });
+        controls.start({
+          x: "-50%",
+          transition: { duration: DURATION, ease: "linear", repeat: Infinity },
+        });
+      });
+  };
+
+  const pause = () => {
+    if (pauseTimer.current) {
+      window.clearTimeout(pauseTimer.current);
+      pauseTimer.current = null;
+    }
+    controls.stop();
+    setPaused(true);
+  };
+
+  const unpause = () => {
+    setPaused(false);
+    resume();
+  };
+
+  // Start the loop once cards are available
   useEffect(() => {
+    if (!certs.length) return;
+    controls.set({ x: "0%" });
     controls.start({
       x: "-50%",
       transition: { duration: DURATION, ease: "linear", repeat: Infinity },
@@ -247,41 +174,24 @@ export function CertificationsCarousel() {
       if (pauseTimer.current) window.clearTimeout(pauseTimer.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const getCurrentPercent = () => {
-    const el = trackRef.current;
-    if (!el) return 0;
-    const style = window.getComputedStyle(el);
-    const matrix = new DOMMatrixReadOnly(style.transform);
-    const width = el.getBoundingClientRect().width || 1;
-    return (matrix.m41 / width) * 100;
-  };
+  }, [certs.length]);
 
   const nudge = (dir: "prev" | "next") => {
     const el = trackRef.current;
     if (!el) return;
-    controls.stop();
-    setPaused(true);
+    pause();
 
     const width = el.getBoundingClientRect().width || 1;
-    const currentPx = new DOMMatrixReadOnly(window.getComputedStyle(el).transform).m41;
-    let nextPx = currentPx + (dir === "next" ? -CARD_STEP : CARD_STEP);
-    // wrap within [-width/2, 0]
     const half = width / 2;
+    let nextPx = currentPx() + (dir === "next" ? -CARD_STEP : CARD_STEP);
     if (nextPx > 0) nextPx -= half;
     if (nextPx < -half) nextPx += half;
 
-    controls.start({
-      x: nextPx,
-      transition: { duration: 0.5, ease: "easeOut" },
-    });
+    controls.start({ x: nextPx, transition: { duration: 0.5, ease: "easeOut" } });
 
-    if (pauseTimer.current) window.clearTimeout(pauseTimer.current);
     pauseTimer.current = window.setTimeout(() => {
       setPaused(false);
-      const percent = (nextPx / width) * 100;
-      startLoop(percent);
+      resume();
     }, 5000);
   };
 
@@ -299,24 +209,16 @@ export function CertificationsCarousel() {
               Professional <span className="underline-brand">Credentials</span>
             </h2>
             <p className="mt-5 text-base text-ink/60 md:text-lg">
-              {allCerts.length} verified certificates across ML, databases, backend & programming.
+              {loading
+                ? "Loading certificates…"
+                : `${certs.length} verified certificates, synced live from Google Drive.`}
             </p>
           </div>
           <div className="hidden shrink-0 items-center gap-3 md:flex">
-            <button
-              type="button"
-              aria-label="Previous certificate"
-              onClick={() => nudge("prev")}
-              className={btnClass}
-            >
+            <button type="button" aria-label="Previous certificate" onClick={() => nudge("prev")} className={btnClass}>
               <ArrowLeft className="h-5 w-5" />
             </button>
-            <button
-              type="button"
-              aria-label="Next certificate"
-              onClick={() => nudge("next")}
-              className={btnClass}
-            >
+            <button type="button" aria-label="Next certificate" onClick={() => nudge("next")} className={btnClass}>
               <ArrowRight className="h-5 w-5" />
             </button>
           </div>
@@ -326,11 +228,11 @@ export function CertificationsCarousel() {
       {/* Marquee */}
       <div
         className="relative mt-4"
+        onMouseEnter={pause}
+        onMouseLeave={unpause}
         style={{
-          maskImage:
-            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          maskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
         }}
       >
         <motion.div
@@ -344,30 +246,25 @@ export function CertificationsCarousel() {
             <Card key={`${c.n}-${i}`} c={c} />
           ))}
         </motion.div>
+        {!loading && certs.length === 0 && (
+          <div className="px-6 py-10 text-center text-sm text-ink/50">
+            No certificates found in the connected Google Drive folder yet.
+          </div>
+        )}
       </div>
 
       {/* Mobile arrows */}
       <div className="mt-6 flex items-center justify-center gap-3 md:hidden">
-        <button
-          type="button"
-          aria-label="Previous certificate"
-          onClick={() => nudge("prev")}
-          className={btnClass}
-        >
+        <button type="button" aria-label="Previous certificate" onClick={() => nudge("prev")} className={btnClass}>
           <ArrowLeft className="h-5 w-5" />
         </button>
-        <button
-          type="button"
-          aria-label="Next certificate"
-          onClick={() => nudge("next")}
-          className={btnClass}
-        >
+        <button type="button" aria-label="Next certificate" onClick={() => nudge("next")} className={btnClass}>
           <ArrowRight className="h-5 w-5" />
         </button>
       </div>
 
       <div className="mt-6 text-center text-sm italic text-ink/50">
-        {paused ? "Paused · resuming shortly…" : "Hover to open and verify"} · {allCerts.length} credentials and counting.
+        {paused ? "Paused · move your cursor away to resume" : "Hover to pause · click a card to verify"}
       </div>
     </section>
   );
