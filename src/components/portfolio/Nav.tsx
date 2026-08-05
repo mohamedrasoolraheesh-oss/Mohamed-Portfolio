@@ -78,7 +78,11 @@ export function Nav() {
             onClick={() => setOpen((s) => !s)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="grid h-11 w-11 place-items-center rounded-full border border-ink/10 bg-white text-ink lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className={`grid h-11 w-11 place-items-center rounded-full border transition-colors duration-300 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
+              open
+                ? "border-ink bg-ink text-white"
+                : "border-ink/10 bg-white text-ink"
+            }`}
           >
             <span className="block h-0.5 w-4 bg-current" />
             <span className="mt-1 block h-0.5 w-4 bg-current" />
