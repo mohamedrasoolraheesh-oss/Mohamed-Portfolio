@@ -58,7 +58,13 @@ export function HelloAbout() {
             internship roles to deliver impactful, data-driven products.
           </motion.p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-5 text-ink/90">
+          <motion.ul
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false }}
+            variants={{ show: { transition: { staggerChildren: 0.08 } } }}
+            className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
+          >
             {[
               { Icon: Code2, label: "Python" },
               { Icon: Database, label: "Pandas" },
@@ -66,15 +72,26 @@ export function HelloAbout() {
               { Icon: FileSearch, label: "NLP" },
               { Icon: Boxes, label: "RAG" },
             ].map(({ Icon, label }) => (
-              <span
+              <motion.li
                 key={label}
-                title={label}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-ink/20 bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+                variants={{
+                  hidden: { opacity: 0, y: 12, scale: 0.9 },
+                  show: { opacity: 1, y: 0, scale: 1 },
+                }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -4, scale: 1.06 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative flex items-center gap-2.5 rounded-2xl border border-white/25 bg-white/15 px-3.5 py-2.5 backdrop-blur-md transition-colors hover:border-white/50 hover:bg-white/25"
               >
-                <Icon className="h-5 w-5" strokeWidth={1.8} />
-              </span>
+                <span className="grid h-8 w-8 place-items-center rounded-xl bg-ink text-white shadow-sm transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
+                  <Icon className="h-4 w-4" strokeWidth={2} />
+                </span>
+                <span className="pr-1 text-sm font-semibold tracking-tight text-ink">
+                  {label}
+                </span>
+              </motion.li>
             ))}
-          </div>
+          </motion.ul>
 
         </div>
       </div>
