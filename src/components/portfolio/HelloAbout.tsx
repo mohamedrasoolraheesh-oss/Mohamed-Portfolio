@@ -81,7 +81,7 @@ export function HelloAbout() {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -4, scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative flex h-11 items-center gap-2 rounded-2xl border border-white/40 bg-white/25 px-3 backdrop-blur-md transition-colors hover:border-white/60 hover:bg-white/35 sm:h-12 sm:gap-2.5 sm:px-3.5"
+                className="group relative flex h-11 items-center gap-2 rounded-2xl border border-white/70 bg-white/35 px-3 backdrop-blur-md transition-colors hover:border-white hover:bg-white/50 sm:h-12 sm:gap-2.5 sm:px-3.5"
               >
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-xl bg-ink text-white shadow-sm transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110 sm:h-8 sm:w-8">
                   <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
