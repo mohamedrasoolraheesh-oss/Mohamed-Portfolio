@@ -63,7 +63,7 @@ export function HelloAbout() {
             whileInView="show"
             viewport={{ once: false }}
             variants={{ show: { transition: { staggerChildren: 0.08 } } }}
-            className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
+            className="mt-8 flex flex-wrap items-center gap-2.5 sm:gap-3"
           >
             {[
               { Icon: Code2, label: "Python" },
@@ -81,12 +81,12 @@ export function HelloAbout() {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -4, scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative flex items-center gap-2.5 rounded-2xl border border-white/25 bg-white/15 px-3.5 py-2.5 backdrop-blur-md transition-colors hover:border-white/50 hover:bg-white/25"
+                className="group relative flex h-11 items-center gap-2 rounded-2xl border border-white/40 bg-white/25 px-3 backdrop-blur-md transition-colors hover:border-white/60 hover:bg-white/35 sm:h-12 sm:gap-2.5 sm:px-3.5"
               >
-                <span className="grid h-8 w-8 place-items-center rounded-xl bg-ink text-white shadow-sm transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
-                  <Icon className="h-4 w-4" strokeWidth={2} />
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-xl bg-ink text-white shadow-sm transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110 sm:h-8 sm:w-8">
+                  <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
                 </span>
-                <span className="pr-1 text-sm font-semibold tracking-tight text-ink">
+                <span className="pr-0.5 text-xs font-semibold tracking-tight text-ink sm:text-sm">
                   {label}
                 </span>
               </motion.li>
