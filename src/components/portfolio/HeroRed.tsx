@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, Volume2, VolumeX, Code2, BarChart3, BrainCircuit, Linkedin } from "lucide-react";
+import { ArrowUpRight, Volume2, VolumeX, Code2, BarChart3, BrainCircuit } from "lucide-react";
 import { useState } from "react";
 import heroVideoAsset from "../../assets/hero.mp4.asset.json";
 import { toAssetUrl } from "../../lib/asset-url";
@@ -79,15 +79,6 @@ export function HeroRed() {
               className="inline-flex items-center gap-2 rounded-full border border-white/70 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-white hover:text-ink"
             >
               Contact Me
-            </a>
-            <a
-              href="https://www.linkedin.com/in/rebel07/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn profile"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-ink shadow-[0_12px_30px_-12px_rgba(0,0,0,0.4)] transition-all hover:-translate-y-0.5 hover:bg-white/90 active:scale-95"
-            >
-              <Linkedin className="h-5 w-5" />
             </a>
           </motion.div>
         </div>
