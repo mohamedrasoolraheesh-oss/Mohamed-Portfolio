@@ -80,15 +80,6 @@ export function HeroRed() {
             >
               Contact Me
             </a>
-            <a
-              href="https://www.linkedin.com/in/rebel07/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn profile"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-ink shadow-[0_12px_30px_-12px_rgba(0,0,0,0.4)] transition-all hover:-translate-y-0.5 hover:bg-white/90 active:scale-95"
-            >
-              <Linkedin className="h-5 w-5" />
-            </a>
           </motion.div>
         </div>
 
