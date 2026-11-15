@@ -28,6 +28,8 @@ async function driveGet(path: string, params: Record<string, string>) {
 
 const FILE_FIELDS = "files(id,name,mimeType,modifiedTime,webViewLink,thumbnailLink),nextPageToken";
 const MEDIA_Q = "(mimeType contains 'image/' or mimeType='application/pdf')";
+const CERTIFICATE_NAME = /cert|credential|badge|internship|completion|course|training/i;
+const RESUME_NAME = /resume/i;
 
 async function listAll(q: string) {
   const out: Record<string, string>[] = [];
@@ -65,12 +67,12 @@ Deno.serve(async (req) => {
         folders.find((f) => (f.name ?? "").toLowerCase() === FOLDER_NAME.toLowerCase())?.id ?? "";
     }
 
-    let files: Record<string, string>[] = [];
-    let scope = "folder";
+    let folderFiles: Record<string, string>[] = [];
+    const folderIds = new Set<string>();
 
     if (rootId) {
       // walk the folder tree (folder + all nested subfolders)
-      const ids = new Set([rootId]);
+      folderIds.add(rootId);
       let frontier = [rootId];
       while (frontier.length) {
         const next: string[] = [];
@@ -79,30 +81,34 @@ Deno.serve(async (req) => {
             `'${id}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`,
           );
           for (const s of subs) {
-            if (!ids.has(s.id)) {
-              ids.add(s.id);
+            if (!folderIds.has(s.id)) {
+              folderIds.add(s.id);
               next.push(s.id);
             }
           }
         }
         frontier = next;
       }
-      for (const id of ids) {
-        files.push(...(await listAll(`'${id}' in parents and trashed=false and ${MEDIA_Q}`)));
+      for (const id of folderIds) {
+        folderFiles.push(...(await listAll(`'${id}' in parents and trashed=false and ${MEDIA_Q}`)));
       }
-    } else {
-      // No "Certificates" folder — fall back to certificate-looking files anywhere in the Drive
-      scope = "all-drive";
-      const all = await listAll(`trashed=false and ${MEDIA_Q}`);
-      files = all.filter((f) =>
-        /cert|credential|badge|internship|completion|course|training/i.test(f.name ?? "")
-      );
     }
 
-    // de-duplicate by id
-    const seen = new Set<string>();
-    const items = files
-      .filter((f) => (seen.has(f.id) ? false : (seen.add(f.id), true)))
+    // Include certificate-like files saved elsewhere in Drive as well as every media file
+    // in the Certificates folder tree. Avoid including unrelated Drive photos or resumes.
+    const allDriveMedia = await listAll(`trashed=false and ${MEDIA_Q}`);
+    const folderFileIds = new Set(folderFiles.map((file) => file.id));
+    const files = allDriveMedia.filter((file) => {
+      const inCertificateFolder = folderFileIds.has(file.id) ||
+        (file.parents ?? []).some((parentId) => folderIds.has(parentId));
+      return !RESUME_NAME.test(file.name ?? "") &&
+        (inCertificateFolder || CERTIFICATE_NAME.test(file.name ?? ""));
+    });
+
+    // De-duplicate by ID and keep the newest certificates first.
+    const uniqueFiles = [...new Map(files.map((file) => [file.id, file])).values()]
+      .sort((a, b) => (b.modifiedTime ?? "").localeCompare(a.modifiedTime ?? ""));
+    const items = uniqueFiles
       .map((f) => ({
         id: f.id,
         title: (f.name ?? "").replace(/\.(pdf|jpe?g|png|webp|gif)$/i, "").replace(/[_-]+/g, " ")
@@ -116,7 +122,13 @@ Deno.serve(async (req) => {
       }));
 
     return new Response(
-      JSON.stringify({ items, folderFound: Boolean(rootId), folderId: rootId, scope, count: items.length }),
+      JSON.stringify({
+        items,
+        folderFound: Boolean(rootId),
+        folderId: rootId,
+        scope: rootId ? "folder-and-drive" : "all-drive",
+        count: items.length,
+      }),
       {
         headers: {
           ...corsHeaders,
