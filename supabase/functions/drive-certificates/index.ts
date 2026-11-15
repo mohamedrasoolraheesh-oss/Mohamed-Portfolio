@@ -31,8 +31,18 @@ const MEDIA_Q = "(mimeType contains 'image/' or mimeType='application/pdf')";
 const CERTIFICATE_NAME = /cert|credential|badge|internship|completion|course|training/i;
 const RESUME_NAME = /resume/i;
 
-async function listAll(q: string) {
-  const out: Record<string, string>[] = [];
+type DriveFile = {
+  id: string;
+  name?: string;
+  mimeType?: string;
+  modifiedTime?: string;
+  webViewLink?: string;
+  thumbnailLink?: string;
+  parents?: string[];
+};
+
+async function listAll(q: string): Promise<DriveFile[]> {
+  const out: DriveFile[] = [];
   let pageToken = "";
   do {
     const params: Record<string, string> = {
